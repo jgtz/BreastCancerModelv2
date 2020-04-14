@@ -37,9 +37,9 @@ public class Networkrun {
     
     public static void main(String[] args) throws ScriptException {
 
-        //String fileName=args[0]; //This file contains the Boolean rules of the model
-        String fileName="BreastCancerModel_ZanudoEtAl2017.txt";
-        if("BreastCancerModel_ZanudoEtAl2017.txt".equals(fileName)){BreastCancerModelZanudoEtAl2017(args);}
+        String fileName=args[0]; //This file contains the Boolean rules of the model
+        //String fileName="BreastCancerModel_ZanudoEtAl2017.booleannet";
+        if("BreastCancerModel_ZanudoEtAl2017.booleannet".equals(fileName)){BreastCancerModelZanudoEtAl2017(args);}
         else{
             Network nw=GenerateModel(fileName);
             if(args.length==4){NetworkSimulations.BaselineTimecourse(args,nw);}
@@ -54,7 +54,7 @@ public class Networkrun {
     
     public static void BreastCancerModelZanudoEtAl2017(String[] args) throws ScriptException {
 
-        String fileName="BreastCancerModel_ZanudoEtAl2017.txt";
+        String fileName="BreastCancerModel_ZanudoEtAl2017.booleannet";
         int IC=1000; //Number of initial conditions
         int T=25; //This is the number of time steps
         
