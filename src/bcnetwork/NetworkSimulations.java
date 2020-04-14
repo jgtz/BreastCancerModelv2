@@ -9,6 +9,7 @@ import booleandynamicmodeling.OtherMethods;
 import booleandynamicmodeling.ReadWriteFiles;
 import booleandynamicmodeling.UpdateMethods;
 import fileOperations.FileToWrite;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -180,15 +181,22 @@ public class NetworkSimulations {
     }
 
     public static Network GenerateModel(String fileName) throws ScriptException {
-        
-        System.out.println("\nFilename: "+fileName);
-        System.out.println("Creating Boolean table directory: "+fileName.split("\\.")[0]);
-        ReadWriteFiles.createTablesFromBooleanRules(fileName.split("\\.")[0], fileName);
-        System.out.println("Boolean table directory created.");
-        System.out.println("Creating functions and names files.");
-        Network nw=OtherMethods.RecreateNetwork(fileName.split("\\.")[0]);        
-        System.out.println("Functions and names files created.");
-        nw.findNodeOutputs();
+        Network nw = null;        
+        File fName = new File(fileName);
+        if (fName.isFile()){
+            String shortname=fName.getName();
+            System.out.println("\nFilename: "+fileName);
+            System.out.println("Creating Boolean table directory: "+shortname.split("\\.")[0]);
+            ReadWriteFiles.createTablesFromBooleanRules(shortname.split("\\.")[0], fileName);
+            System.out.println("Boolean table directory created.");
+            System.out.println("Creating functions and names files.");
+            nw=OtherMethods.RecreateNetwork(shortname.split("\\.")[0]);        
+            System.out.println("Functions and names files created.");
+            nw.findNodeOutputs();
+        }
+        else{
+            System.out.println("File could not be found.");
+        }
         return nw;
         
     }

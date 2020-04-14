@@ -6,6 +6,7 @@ package bcnetwork;
 
 import booleandynamicmodeling.Network;
 import static bcnetwork.NetworkSimulations.GenerateModel;
+import java.io.File;
 import javax.script.ScriptException;
 
 /**
@@ -36,16 +37,19 @@ public class Networkrun {
      */
     
     public static void main(String[] args) throws ScriptException {
-
-        String fileName=args[0]; //This file contains the Boolean rules of the model
+        
+        String fileName=args[0]; //This file contains the Boolean rules of the model     
         //String fileName="BreastCancerModel_ZanudoEtAl2017.booleannet";
-        if("BreastCancerModel_ZanudoEtAl2017.booleannet".equals(fileName)){BreastCancerModelZanudoEtAl2017(args);}
+        File fName = new File(args[0]);    
+              
+        if("BreastCancerModel_ZanudoEtAl2017.booleannet".equals(fName.getName())){BreastCancerModelZanudoEtAl2017(args);}
         else{
             Network nw=GenerateModel(fileName);
-            if(args.length==4){NetworkSimulations.BaselineTimecourse(args,nw);}
-            if(args.length==6){NetworkSimulations.SinglePerturbationTimecourse(args,nw);} 
-            if(args.length==8){NetworkSimulations.DoublePerturbationTimecourse(args,nw);}
-            if(args.length==10){NetworkSimulations.TriplePerturbationTimecourse(args,nw);} 
+            String[] test=args.clone();test[0]=fName.getName();
+            if(args.length==4){NetworkSimulations.BaselineTimecourse(test,nw);}
+            if(args.length==6){NetworkSimulations.SinglePerturbationTimecourse(test,nw);} 
+            if(args.length==8){NetworkSimulations.DoublePerturbationTimecourse(test,nw);}
+            if(args.length==10){NetworkSimulations.TriplePerturbationTimecourse(test,nw);} 
         
         }
 
@@ -54,12 +58,14 @@ public class Networkrun {
     
     public static void BreastCancerModelZanudoEtAl2017(String[] args) throws ScriptException {
 
-        String fileName="BreastCancerModel_ZanudoEtAl2017.booleannet";
+        String fileName=args[0];
+        File fName = new File(fileName);
+        String shortName=fName.getName();
         int IC=1000; //Number of initial conditions
         int T=25; //This is the number of time steps
         
         String[] test=new String[10];
-        test[0]=fileName;
+        test[0]=shortName;
         test[1]=""+IC;
         test[2]=""+T;
         test[3]="true";
