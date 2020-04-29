@@ -19,13 +19,13 @@ public class NetworkSinglePerturbationSimulations {
     //This program simulates the ER+ breast cancer network model in the presence of each possible
     //single node perturbation, starting from the cancer steady state initial condition. 
     
-    //The regulatory functions of the modelbare given in the TXT file "BreastCancerModel_ZanudoEtAl2017.txt".
+    //The regulatory functions of the bare model are given in the TXT file "BreastCancerModel_ZanudoEtAl2017.txt".
     //The model dynamics are governed by the stochastic general asynchronous updating
     //scheme. Every time step corresponds to several (Ntimes) updates, with one time
     //step corresponding to the average number of updates needed to update a slow node. 
 
      /**
-     * @param args args[0] is the name of the TXT file where the model is. For the breast cancer model it is "BreastCancerModel_ZanudoEtAl2017.txt".
+     * @param args args[0] is the name of the TXT file where the model rules are. For the breast cancer model it is "BreastCancerModel_ZanudoEtAl2017.txt".
      * args[1] is the number of initial conditions
      * args[2] is the number of normalized timesteps (number of timesteps equal to the average time needed to update a slow node)
      * @param nw Network model that will be simulated
@@ -41,6 +41,7 @@ public class NetworkSinglePerturbationSimulations {
         String line;
         int numberOfPerturbations=2; //Alpelisib + perturbation
         int timePerturbationStart=0;
+        int seed=1000;
 
         ArrayList<Integer> state1=new ArrayList<Integer>();state1.add(0);state1.add(1);
         FileToWrite fw=new FileToWrite(outputFileName);
@@ -60,7 +61,7 @@ public class NetworkSinglePerturbationSimulations {
         for(Integer s0: state1){
                 for(int i0=0;i0<nw.getN();i0++){
                     test[6]=nw.getNames()[i0];test[7]=""+s0;
-                    List timecourseResult=NetworkSimulations.runTimecourse(nw,test,numberOfPerturbations,timePerturbationStart, false,"");
+                    List timecourseResult=NetworkSimulations.runTimecourse(nw,test,numberOfPerturbations,timePerturbationStart, false,"",seed);
                     double Apofraction1=(double) timecourseResult.get(0);
                     double Apofraction2=(double) timecourseResult.get(1);
                     double Apofraction3=(double) timecourseResult.get(2);

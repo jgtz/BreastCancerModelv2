@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/jgtz/Documents/GitHub/BreastCancerModelv2.0/src/bcnetwork/Networkrun.java</file>
-            <file>file:/Users/jgtz/Documents/GitHub/BreastCancerModelv2.0/src/bcnetwork/NetworkSinglePerturbationSimulations.java</file>
-            <file>file:/Users/jgtz/Documents/GitHub/BreastCancerModelv2.0/src/bcnetwork/NetworkDoublePerturbationSimulations.java</file>
-            <file>file:/Users/jgtz/Documents/GitHub/BreastCancerModelv2.0/src/bcnetwork/NetworkSimulations.java</file>
+            <file>file:/Users/jgtz/Documents/GitHub/BreastCancerModelv2/src/bcnetwork/NetworkSinglePerturbationSimulations.java</file>
+            <file>file:/Users/jgtz/Documents/GitHub/BreastCancerModelv2/src/bcnetwork/NetworkSimulations.java</file>
+            <file>file:/Users/jgtz/Documents/GitHub/BreastCancerModelv2/src/bcnetwork/NetworkDoublePerturbationSimulations.java</file>
+            <file>file:/Users/jgtz/Documents/GitHub/BreastCancerModelv2/src/bcnetwork/Networkrun.java</file>
         </group>
     </open-files>
 </project-private>

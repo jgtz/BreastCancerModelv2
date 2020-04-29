@@ -9,6 +9,8 @@ import booleandynamicmodeling.OtherMethods;
 import booleandynamicmodeling.ReadWriteFiles;
 import booleandynamicmodeling.UpdateMethods;
 import fileOperations.FileToWrite;
+import fileOperations.FileToRead;
+import java.util.Random;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +36,7 @@ public class NetworkSimulations {
     //where X specifies the perturbations simulated with the model.
 
      /**
-     * @param args args[0] is the name of the TXT file where the model is. For the breast cancer model it is "BreastCancerModel_ZanudoEtAl2017.txt".
+     * @param args args[0] is the name of the TXT file where the model rules are. For the breast cancer model it is "BreastCancerModel_ZanudoEtAl2017.txt".
      * args[1] is the number of initial conditions
      * args[2] is the number of normalized timesteps (number of timesteps equal to the average time needed to update a slow node)
      * args[3] is an option of whether to write to file the timecourse of the simulation
@@ -45,13 +47,14 @@ public class NetworkSimulations {
         
         String fileName=args[0]; //This file contains the Boolean rules of the model              
         String timecourseFileName="timecourse"+fileName.split("\\.")[0]+".txt";
+        int seed=1000;
         int numberOfPerturbations=0;
         int timePerturbationStart=2;
         boolean writeTimecourse=false;
         if("true".equals(args[3])){writeTimecourse=true;}
         
         System.out.println("Perturbation\tApofrac1\tApofrac2\tApofrac3\tApofrac\tProlfrac1\tProlfrac2\tProlfrac3\tProlfrac4\tProlfrac");                
-        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName);
+        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,seed);
         double Apofraction1=(double) timecourseResult.get(0);
         double Apofraction2=(double) timecourseResult.get(1);
         double Apofraction3=(double) timecourseResult.get(2);
@@ -80,6 +83,7 @@ public class NetworkSimulations {
         String fileName=args[0]; //This file contains the Boolean rules of the model       
         String PertNodeString=args[4]; //Node that wil be perturbed
         String PertNodeState=args[5]; //Node state of the perturbed node. Must be 0 or 1
+        int seed=1000;
         String timecourseFileName="timecourse"+fileName.split("\\.")[0]+"_"+PertNodeString+"="+PertNodeState+".txt"; 
         int numberOfPerturbations=1;
         int timePerturbationStart=2; 
@@ -87,7 +91,7 @@ public class NetworkSimulations {
         if("true".equals(args[3])){writeTimecourse=true;}     
         
         System.out.println("Perturbation\tApofrac1\tApofrac2\tApofrac3\tApofrac\tProlfrac1\tProlfrac2\tProlfrac3\tProlfrac4\tProlfrac");                
-        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName);
+        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,seed);
         double Apofraction1=(double) timecourseResult.get(0);
         double Apofraction2=(double) timecourseResult.get(1);
         double Apofraction3=(double) timecourseResult.get(2);
@@ -117,7 +121,8 @@ public class NetworkSimulations {
         String PertNodeString1=args[4]; //Node 1 that wil be perturbed
         String PertNodeState1=args[5]; //Node state of the perturbed node 1. Must be 0 or 1
         String PertNodeString2=args[6]; //Node 2 that wil be perturbed
-        String PertNodeState2=args[7]; //Node state of the perturbed node 2. Must be 0 or 1        
+        String PertNodeState2=args[7]; //Node state of the perturbed node 2. Must be 0 or 1
+        int seed=1000;
         String timecourseFileName="timecourse"+fileName.split("\\.")[0]+"_"+PertNodeString1+"="+PertNodeState1+"_"+PertNodeString2+"="+PertNodeState2+".txt";
         int numberOfPerturbations=2;
         int timePerturbationStart=2; 
@@ -125,7 +130,7 @@ public class NetworkSimulations {
         if("true".equals(args[3])){writeTimecourse=true;}
         
         System.out.println("Perturbation1\tPerturbation2\tApofrac1\tApofrac2\tApofrac3\tApofrac\tProlfrac1\tProlfrac2\tProlfrac3\tProlfrac4\tProlfrac");                
-        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName);
+        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,seed);
         double Apofraction1=(double) timecourseResult.get(0);
         double Apofraction2=(double) timecourseResult.get(1);
         double Apofraction3=(double) timecourseResult.get(2);
@@ -158,7 +163,8 @@ public class NetworkSimulations {
         String PertNodeString2=args[6]; //Node 2 that wil be perturbed
         String PertNodeState2=args[7]; //Node state of the perturbed node 2. Must be 0 or 1        
         String PertNodeString3=args[8]; //Node 3 that wil be perturbed
-        String PertNodeState3=args[9]; //Node state of the perturbed node 3. Must be 0 or 1  
+        String PertNodeState3=args[9]; //Node state of the perturbed node 3. Must be 0 or 1
+        int seed=1000;
         int numberOfPerturbations=3;
         int timePerturbationStart=2; 
         String timecourseFileName="timecourse"+fileName.split("\\.")[0]+"_"+PertNodeString1+"="+PertNodeState1+"_"+PertNodeString2+"="+PertNodeState2+"_"+PertNodeString3+"="+PertNodeState3+".txt"; 
@@ -166,7 +172,7 @@ public class NetworkSimulations {
         if("true".equals(args[3])){writeTimecourse=true;}
 
         System.out.println("Perturbation1\tPerturbation2\tPerturbation3\tApofrac1\tApofrac2\tApofrac3\tApofrac\tProlfrac1\tProlfrac2\tProlfrac3\tProlfrac4\tProlfrac");
-        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName);
+        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,seed);
         double Apofraction1=(double) timecourseResult.get(0);
         double Apofraction2=(double) timecourseResult.get(1);
         double Apofraction3=(double) timecourseResult.get(2);
@@ -189,9 +195,10 @@ public class NetworkSimulations {
             System.out.println("Creating Boolean table directory: "+shortname.split("\\.")[0]);
             ReadWriteFiles.createTablesFromBooleanRules(shortname.split("\\.")[0], fileName);
             System.out.println("Boolean table directory created.");
-            System.out.println("Creating functions and names files.");
-            nw=OtherMethods.RecreateNetwork(shortname.split("\\.")[0]);        
             System.out.println("Functions and names files created.");
+            System.out.println("Creating network model...");
+            nw=OtherMethods.RecreateNetwork(shortname.split("\\.")[0]);        
+            System.out.println("Model created.");
             nw.findNodeOutputs();
         }
         else{
@@ -200,10 +207,31 @@ public class NetworkSimulations {
         return nw;
         
     }
+
+    public static Network GetModel(String fileName) throws ScriptException {
+        Network nw = null;        
+        File fName = new File(fileName);
+        if (fName.isFile()){
+            String shortname=fName.getName();
+            System.out.println("\nFilename: "+fileName);
+            System.out.println("Creating network model based on Boolean tables, functions, and names files...");
+            nw=OtherMethods.RecreateNetwork(shortname.split("\\.")[0]);        
+            System.out.println("Model created.");
+            nw.findNodeOutputs();
+        }
+        else{
+            System.out.println("File could not be found.");
+        }
+        return nw;
+        
+    }
+   
     
-    public static List<Double> runTimecourse(Network nw,String [] args,int numberOfPerturbations, int timePerturbationStart, boolean writeTimecourse, String timecourseFileName){
+    public static List<Double> runTimecourse(Network nw,String [] args,int numberOfPerturbations, int timePerturbationStart, boolean writeTimecourse, String timecourseFileName, int seed){
         
         String PertNodeString1 = null,PertNodeString2 = null,PertNodeString3 = null,PertNodeState1 = null,PertNodeState2 = null,PertNodeState3 = null; 
+        Random rand = new Random(seed);
+        String fileName=args[0].split("\\.")[0];
         if(numberOfPerturbations>0){
                 PertNodeString1=args[4]; //Node 1 that wil be perturbed
                 PertNodeState1=args[5]; //Node state of the perturbed node 1. Must be 0 or 1
@@ -240,6 +268,7 @@ public class NetworkSimulations {
         int[] nodeStates,pastState;
         double[][] trajectory,trajectory2;
         ArrayList<Integer> KOnodes=new ArrayList<Integer>();
+        HashMap<String,String> initialCondition;
  
         HashMap namesDictionary=new HashMap<Integer,String>();
         HashMap indexDictionary=new HashMap<String,Integer>();
@@ -247,7 +276,7 @@ public class NetworkSimulations {
         Apofraction1Ind=(int) indexDictionary.get("Apoptosis");Apofraction2Ind=(int) indexDictionary.get("Apoptosis_2");Apofraction3Ind=(int) indexDictionary.get("Apoptosis_3");
         Prolfraction1Ind=(int) indexDictionary.get("Proliferation");Prolfraction2Ind=(int) indexDictionary.get("Proliferation_2");Prolfraction3Ind=(int) indexDictionary.get("Proliferation_3");Prolfraction4Ind=(int) indexDictionary.get("Proliferation_4");
         
-        List<ArrayList<Integer>> fast_slow_list = SlowFastNodes(indexDictionary);
+        List<ArrayList<Integer>> fast_slow_list = SlowFastNodes(indexDictionary,fileName);
         fast = fast_slow_list.get(0);
         slow = fast_slow_list.get(1);
         
@@ -262,10 +291,11 @@ public class NetworkSimulations {
         Apofraction1=0;Apofraction2=0;Apofraction3=0;Prolfraction1=0;Prolfraction2=0;Prolfraction3=0;Prolfraction4=0;Apofraction=0;Prolfraction=0;
         trajectory=new double[Tprint][N];
         trajectory2=new double[Tprint][2];
+        initialCondition=getInitialCondition(fileName);
         for(int t=0;t<Tprint;t++){for(int i=0;i<N;i++){trajectory[t][i]=0;}}
         for(int t=0;t<Tprint;t++){for(int i=0;i<2;i++){trajectory2[t][i]=0;}}
         for(int r=0;r<IC;r++){
-            nodeStates=setInitialCondition(indexDictionary); 
+            nodeStates=setInitialCondition(indexDictionary,initialCondition,rand); 
             if(numberOfPerturbations>0){
                 KOnode1=(int) indexDictionary.get(PertNodeString1);
                 KOnodes.add(new Integer(KOnode1));
@@ -299,8 +329,8 @@ public class NetworkSimulations {
                     trajectory2[t][0]+=1.0*prol;
                     trajectory2[t][1]+=1.0*apo;
                     for(int n=0;n<Nprint;n++){
-                        if(Math.random()>=p){index=(int)(Math.random()*fast.size());updateNode=fast.get(index);}
-                        else{index=(int)(Math.random()*slow.size());updateNode=slow.get(index);}
+                        if(rand.nextDouble()>=p){index=(int)(rand.nextDouble()*fast.size());updateNode=fast.get(index);}
+                        else{index=(int)(rand.nextDouble()*slow.size());updateNode=slow.get(index);}
                         pastState=Arrays.copyOf(nodeStates, nodeStates.length);
                         nodeStates[updateNode]=UpdateMethods.updateSingleNodeBoolean(nw, pastState, updateNode);
                         if(numberOfPerturbations>0){
@@ -355,147 +385,79 @@ public class NetworkSimulations {
             return Arrays.asList(Apofraction1,Apofraction2,Apofraction3,Prolfraction1,Prolfraction2,Prolfraction3,Prolfraction4,Apofraction,Prolfraction);
             
             }
-    
-    public static List<ArrayList<Integer>> SlowFastNodes(HashMap<String,Integer> indexDictionary){
+       
+    public static List<ArrayList<Integer>> SlowFastNodes(HashMap<String,Integer> indexDictionary, String filename){
         
         ArrayList<Integer> fast=new ArrayList<>(); //This array stores the indices of the fast nodes
         ArrayList<Integer> slow=new ArrayList<>(); //This array stores the indices of the slow nodes
+        FileToRead fr=new FileToRead(filename+"_SlowFastNodes.txt");
+        HashMap<String,String> slowFastNodes=new HashMap();
+        int ranState;
+        String line;
+        String node;
+        String state;        
         
         //Slow nodes for the simulations. The nodes not added to the "slow" list are the fast nodes and will stay in the "fast" list
         for(int i=0;i<indexDictionary.size();i++){fast.add(new Integer(i));}
-        fast.remove(new Integer((int)indexDictionary.get("HER3")));slow.add(new Integer((int)indexDictionary.get("HER3")));
-        fast.remove(new Integer((int)indexDictionary.get("HER3_2")));slow.add(new Integer((int)indexDictionary.get("HER3_2")));
-        fast.remove(new Integer((int)indexDictionary.get("BIM")));slow.add(new Integer((int)indexDictionary.get("BIM")));
-        fast.remove(new Integer((int)indexDictionary.get("BCL2")));slow.add(new Integer((int)indexDictionary.get("BCL2")));
-        fast.remove(new Integer((int)indexDictionary.get("MCL1")));slow.add(new Integer((int)indexDictionary.get("MCL1")));
-        fast.remove(new Integer((int)indexDictionary.get("HER2")));slow.add(new Integer((int)indexDictionary.get("HER2")));
-        fast.remove(new Integer((int)indexDictionary.get("HER3_T")));slow.add(new Integer((int)indexDictionary.get("HER3_T")));
-        fast.remove(new Integer((int)indexDictionary.get("cycE_CDK2_T")));slow.add(new Integer((int)indexDictionary.get("cycE_CDK2_T")));
-        fast.remove(new Integer((int)indexDictionary.get("IGF1R_T")));slow.add(new Integer((int)indexDictionary.get("IGF1R_T")));
-        fast.remove(new Integer((int)indexDictionary.get("BCL2_T")));slow.add(new Integer((int)indexDictionary.get("BCL2_T")));
-        fast.remove(new Integer((int)indexDictionary.get("BIM_T")));slow.add(new Integer((int)indexDictionary.get("BIM_T")));
-        fast.remove(new Integer((int)indexDictionary.get("ER")));slow.add(new Integer((int)indexDictionary.get("ER")));
-        fast.remove(new Integer((int)indexDictionary.get("ESR1")));slow.add(new Integer((int)indexDictionary.get("ESR1")));
-        fast.remove(new Integer((int)indexDictionary.get("ESR1_2")));slow.add(new Integer((int)indexDictionary.get("ESR1_2")));
-        fast.remove(new Integer((int)indexDictionary.get("FOXA1")));slow.add(new Integer((int)indexDictionary.get("FOXA1")));
-        fast.remove(new Integer((int)indexDictionary.get("PBX1")));slow.add(new Integer((int)indexDictionary.get("PBX1")));
-        fast.remove(new Integer((int)indexDictionary.get("ER_transcription")));slow.add(new Integer((int)indexDictionary.get("ER_transcription")));
-        fast.remove(new Integer((int)indexDictionary.get("ER_transcription_2")));slow.add(new Integer((int)indexDictionary.get("ER_transcription_2")));
-        fast.remove(new Integer((int)indexDictionary.get("cyclinD")));slow.add(new Integer((int)indexDictionary.get("cyclinD")));
-        fast.remove(new Integer((int)indexDictionary.get("cyclinD_2")));slow.add(new Integer((int)indexDictionary.get("cyclinD_2")));
-        fast.remove(new Integer((int)indexDictionary.get("CDK46")));slow.add(new Integer((int)indexDictionary.get("CDK46")));
-        fast.remove(new Integer((int)indexDictionary.get("E2F")));slow.add(new Integer((int)indexDictionary.get("E2F")));
-        fast.remove(new Integer((int)indexDictionary.get("E2F_2")));slow.add(new Integer((int)indexDictionary.get("E2F_2")));
-        fast.remove(new Integer((int)indexDictionary.get("E2F_3")));slow.add(new Integer((int)indexDictionary.get("E2F_3")));
-        fast.remove(new Integer((int)indexDictionary.get("p21_p27_T")));slow.add(new Integer((int)indexDictionary.get("p21_p27_T")));
-        fast.remove(new Integer((int)indexDictionary.get("SGK1_T")));slow.add(new Integer((int)indexDictionary.get("SGK1_T")));
-        fast.remove(new Integer((int)indexDictionary.get("PDK1")));slow.add(new Integer((int)indexDictionary.get("PDK1")));
-        fast.remove(new Integer((int)indexDictionary.get("ER")));slow.add(new Integer((int)indexDictionary.get("ER")));
-        fast.remove(new Integer((int)indexDictionary.get("mTORC2")));slow.add(new Integer((int)indexDictionary.get("mTORC2")));
-        fast.remove(new Integer((int)indexDictionary.get("FOXO3_Ub")));slow.add(new Integer((int)indexDictionary.get("FOXO3_Ub")));
-        fast.remove(new Integer((int)indexDictionary.get("IGF1R")));slow.add(new Integer((int)indexDictionary.get("IGF1R")));
-        fast.remove(new Integer((int)indexDictionary.get("IGF1R_2")));slow.add(new Integer((int)indexDictionary.get("IGF1R_2")));
-        fast.remove(new Integer((int) indexDictionary.get("Apoptosis")));slow.add(new Integer((int) indexDictionary.get("Apoptosis")));
-        fast.remove(new Integer((int) indexDictionary.get("Apoptosis_2")));slow.add(new Integer((int) indexDictionary.get("Apoptosis_2")));
-        fast.remove(new Integer((int) indexDictionary.get("Apoptosis_3")));slow.add(new Integer((int) indexDictionary.get("Apoptosis_3")));
-        fast.remove(new Integer((int) indexDictionary.get("Proliferation")));slow.add(new Integer((int) indexDictionary.get("Proliferation")));
-        fast.remove(new Integer((int) indexDictionary.get("Proliferation_2")));slow.add(new Integer((int) indexDictionary.get("Proliferation_2")));
-        fast.remove(new Integer((int) indexDictionary.get("Proliferation_3")));slow.add(new Integer((int) indexDictionary.get("Proliferation_3")));
-        fast.remove(new Integer((int) indexDictionary.get("Proliferation_4")));slow.add(new Integer((int) indexDictionary.get("Proliferation_4")));
-        fast.remove(new Integer((int)indexDictionary.get("MYC")));slow.add(new Integer((int)indexDictionary.get("MYC")));
-        fast.remove(new Integer((int)indexDictionary.get("MYC_2")));slow.add(new Integer((int)indexDictionary.get("MYC_2")));
-        
+        while(fr.hasNext()){
+            line=fr.nextLine();
+            //System.out.println(line);
+            fast.remove(new Integer((int) indexDictionary.get(line)));
+            slow.add(new Integer((int) indexDictionary.get(line)));           
+        }  
         
         return Arrays.asList(fast, slow);
     
     }
+
+    public static HashMap<String,String> getInitialCondition(String filename){
+            HashMap<String,String> initialCondition=new HashMap();
+            int ranState;
+            String line;
+            String node;
+            String state;
+            FileToRead fr=new FileToRead(filename+"_InitialConditions.txt");
+            while(fr.hasNext()){
+                line=fr.nextLine();
+                node=line.split("\t")[0];
+                state=line.split("\t")[1];        
+                initialCondition.put(node, state);            
+            }
+            return initialCondition;
+    }
+
     
-    public static int[] setInitialCondition(HashMap<String,Integer> indexDictionary){
+    public static int[] setInitialCondition(HashMap<String,Integer> indexDictionary, HashMap<String,String> initialCondition, Random rand){
             int[] nodeStates = new int[indexDictionary.size()];
             int ranState;
-            
+            int ranStateCorrelated = -1;
+            boolean bool_ranState_correlated=false;
+
             for(int i=0;i<indexDictionary.size();i++){nodeStates[i]=0;}
             
-            nodeStates[(int) indexDictionary.get("IGF1R_T")]=1;
-            nodeStates[(int) indexDictionary.get("HER2")]=0;
-            nodeStates[(int) indexDictionary.get("HER3_T")]=0;
-            nodeStates[(int) indexDictionary.get("PDK1")]=0;
-            nodeStates[(int) indexDictionary.get("SGK1_T")]=0;
-            nodeStates[(int) indexDictionary.get("mTORC2")]=1;
-            nodeStates[(int) indexDictionary.get("PIM")]=0;
-            nodeStates[(int) indexDictionary.get("PTEN")]=0;
-
-            nodeStates[(int) indexDictionary.get("Fulvestrant")]=0;
-            nodeStates[(int) indexDictionary.get("Alpelisib")]=0;
-            nodeStates[(int) indexDictionary.get("Everolimus")]=0;
-            nodeStates[(int) indexDictionary.get("Palbociclib")]=0;
-            nodeStates[(int) indexDictionary.get("Trametinib")]=0;
-                        
-            ranState=(int)(1.5*Math.random());
-            nodeStates[(int) indexDictionary.get("BIM")]=ranState;
-            nodeStates[(int) indexDictionary.get("BIM_T")]=ranState;
-            nodeStates[(int) indexDictionary.get("BAD")]=0;
-            nodeStates[(int) indexDictionary.get("MCL1")]=1;           
-            nodeStates[(int) indexDictionary.get("BCL2_T")]=ranState;
-            nodeStates[(int) indexDictionary.get("BCL2")]=ranState;
-            
-            //Nodes state of cancer attractor            
-            nodeStates[(int) indexDictionary.get("IGF1R")]=1;
-            nodeStates[(int) indexDictionary.get("IGF1R_2")]=0;
-            nodeStates[(int) indexDictionary.get("HER2_3")]=0;
-            nodeStates[(int) indexDictionary.get("SGK1")]=0;
-            nodeStates[(int) indexDictionary.get("RAS")]=1;
-            nodeStates[(int) indexDictionary.get("RAS_2")]=0;
-            nodeStates[(int) indexDictionary.get("MAPK")]=1;
-            nodeStates[(int) indexDictionary.get("MAPK_2")]=0;
-            nodeStates[(int) indexDictionary.get("PI3K")]=1;
-            nodeStates[(int) indexDictionary.get("PIP3")]=1;
-            nodeStates[(int) indexDictionary.get("PDK1_pm")]=1;
-            nodeStates[(int) indexDictionary.get("mTORC2_pm")]=1;
-            nodeStates[(int) indexDictionary.get("AKT")]=1;
-            nodeStates[(int) indexDictionary.get("p21_p27_T")]=0;
-            nodeStates[(int) indexDictionary.get("p21_p27")]=0;
-            nodeStates[(int) indexDictionary.get("cycE_CDK2")]=1;
-            nodeStates[(int) indexDictionary.get("cycE_CDK2_T")]=1;            
-            nodeStates[(int) indexDictionary.get("KMT2D")]=0;
-            nodeStates[(int) indexDictionary.get("TSC")]=0;
-            nodeStates[(int) indexDictionary.get("PRAS40")]=0;
-            nodeStates[(int) indexDictionary.get("mTORC1")]=1;
-            nodeStates[(int) indexDictionary.get("FOXO3")]=0;
-            nodeStates[(int) indexDictionary.get("FOXO3_Ub")]=0;
-            nodeStates[(int) indexDictionary.get("EIF4F")]=1;
-            nodeStates[(int) indexDictionary.get("S6K")]=1;
-            nodeStates[(int) indexDictionary.get("Translation")]=1;
-            nodeStates[(int) indexDictionary.get("ER")]=1;
-            nodeStates[(int) indexDictionary.get("ESR1")]=1;
-            nodeStates[(int) indexDictionary.get("ESR1_2")]=0;
-            nodeStates[(int) indexDictionary.get("FOXA1")]=0;
-            nodeStates[(int) indexDictionary.get("PBX1")]=1;
-            nodeStates[(int) indexDictionary.get("ER_transcription")]=1;
-            nodeStates[(int) indexDictionary.get("ER_transcription_2")]=0;
-            nodeStates[(int) indexDictionary.get("cyclinD")]=1;
-            nodeStates[(int) indexDictionary.get("cyclinD_2")]=0;
-            nodeStates[(int) indexDictionary.get("CDK46")]=1;
-            nodeStates[(int) indexDictionary.get("cycD_CDK46")]=1;
-            nodeStates[(int) indexDictionary.get("cycD_CDK46_2")]=0;
-            nodeStates[(int) indexDictionary.get("pRb")]=1;
-            nodeStates[(int) indexDictionary.get("pRb_2")]=1;
-            nodeStates[(int) indexDictionary.get("pRb_3")]=0;
-            nodeStates[(int) indexDictionary.get("E2F")]=1;
-            nodeStates[(int) indexDictionary.get("E2F_2")]=1;
-            nodeStates[(int) indexDictionary.get("E2F_3")]=0;
-            nodeStates[(int) indexDictionary.get("Proliferation")]=1;
-            nodeStates[(int) indexDictionary.get("Proliferation_2")]=1;
-            nodeStates[(int) indexDictionary.get("Proliferation_3")]=1;
-            nodeStates[(int) indexDictionary.get("Proliferation_4")]=0;
-            nodeStates[(int) indexDictionary.get("Apoptosis")]=0;
-            nodeStates[(int) indexDictionary.get("Apoptosis_2")]=0;
-            nodeStates[(int) indexDictionary.get("Apoptosis_3")]=0;
-            nodeStates[(int) indexDictionary.get("MYC")]=1;
-            nodeStates[(int) indexDictionary.get("MYC_2")]=0;
-            
+            for(HashMap.Entry<String,String> entry : initialCondition.entrySet()){
+                //System.out.println(entry.getKey());
+                switch (entry.getValue()) {
+                    case "ranStateCorrelated":
+                        if(!bool_ranState_correlated){
+                            ranStateCorrelated=(int)(1.5*rand.nextDouble());
+                            bool_ranState_correlated=true;
+                        }   nodeStates[(int) indexDictionary.get(entry.getKey())]=ranStateCorrelated;
+                        break;
+                    case "ranState":
+                        ranState=rand.nextInt(2);
+                        nodeStates[(int) indexDictionary.get(entry.getKey())]=ranState;
+                        break;
+                    default:
+                        nodeStates[(int) indexDictionary.get(entry.getKey())]=Integer.parseInt(entry.getValue());
+                        break;
+                }
+                
+            }
+                
             return nodeStates;
     }
+ 
     
     public static void writeTrajectory(Network nw, int N,int IC,int T,double[][] trajectory,double[][] trajectory2,double timeUnit, String filename){
     
