@@ -40,7 +40,7 @@ public class NetworkSimulations {
      * args[1] is the number of initial conditions
      * args[2] is the number of normalized timesteps (number of timesteps equal to the average time needed to update a slow node)
      * args[3] is an option of whether to write to file the timecourse of the simulation
-     * @param nw Network model that will be simulated
+     * @param nw Network object with the model already imported
      */
 
     public static void BaselineTimecourse(String[] args, Network nw) {
@@ -75,7 +75,7 @@ public class NetworkSimulations {
      * args[2] is the number of normalized timesteps (number of timesteps equal to the average time needed to update a slow node)
      * args[3] is an option of whether to write to file the timecourse of the simulation
      * args[4] is the node name of the first perturbation, args[5] is the state of the first perturbation
-     * @param nw
+     * @param nw Network object with the model already imported
      */
     
     public static void SinglePerturbationTimecourse(String[] args, Network nw) {
@@ -112,7 +112,7 @@ public class NetworkSimulations {
      * args[3] is an option of whether to write to file the timecourse of the simulation
      * args[4] is the node name of the first perturbation, args[5] is the state of the first perturbation
      * args[6] is the node name of the second perturbation, args[7] is the state of the second perturbation
-     * @param nw Network model that will be simulated
+     * @param nw Network object with the model already imported
      */
     
     public static void DoublePerturbationTimecourse(String[] args, Network nw) {
@@ -151,8 +151,8 @@ public class NetworkSimulations {
      * args[3] is an option of whether to write to file the timecourse of the simulation
      * args[4] is the node name of the first perturbation, args[5] is the state of the first perturbation
      * args[6] is the node name of the second perturbation, args[7] is the state of the second perturbation
-     * args[8] is the node name of the second perturbation, args[9] is the state of the second perturbation
-     * @param nw Network model that will be simulated
+     * args[8] is the node name of the third perturbation, args[9] is the state of the third perturbation
+     * @param nw Network object with the model already imported
      */    
     
     public static void TriplePerturbationTimecourse(String[] args, Network nw) {
@@ -186,6 +186,51 @@ public class NetworkSimulations {
                 
     }
 
+    /**
+     * @param args args[0] is the name of the TXT file where the model is. For the breast cancer model it is "BreastCancerModel_ZanudoEtAl2017.txt".
+     * args[1] is the number of initial conditions
+     * args[2] is the number of normalized timesteps (number of timesteps equal to the average time needed to update a slow node)
+     * args[3] is an option of whether to write to file the timecourse of the simulation
+     * args[4] is the node name of the first perturbation, args[5] is the state of the first perturbation
+     * args[6] is the node name of the second perturbation, args[7] is the state of the second perturbation
+     * args[8] is the node name of the third perturbation, args[9] is the state of the third perturbation
+     * args[10] is the node name of the third perturbation, args[11] is the state of the third perturbation
+     * @param nw Network object with the model already imported
+     */ 
+    
+    public static void QuadruplePerturbationTimecourse(String[] args, Network nw) {
+        
+        String fileName=args[0]; //This file contains the Boolean rules of the model               
+        String PertNodeString1=args[4]; //Node 1 that wil be perturbed
+        String PertNodeState1=args[5]; //Node state of the perturbed node 1. Must be 0 or 1
+        String PertNodeString2=args[6]; //Node 2 that wil be perturbed
+        String PertNodeState2=args[7]; //Node state of the perturbed node 2. Must be 0 or 1        
+        String PertNodeString3=args[8]; //Node 3 that wil be perturbed
+        String PertNodeState3=args[9]; //Node state of the perturbed node 3. Must be 0 or 1
+        String PertNodeString4=args[10]; //Node 3 that wil be perturbed
+        String PertNodeState4=args[11]; //Node state of the perturbed node 3. Must be 0 or 1
+        int seed=1000;
+        int numberOfPerturbations=4;
+        int timePerturbationStart=2; 
+        String timecourseFileName="timecourse"+fileName.split("\\.")[0]+"_"+PertNodeString1+"="+PertNodeState1+"_"+PertNodeString2+"="+PertNodeState2+"_"+PertNodeString3+"="+PertNodeState3+"_"+PertNodeString4+"="+PertNodeState4+".txt"; 
+        boolean writeTimecourse=false;
+        if("true".equals(args[3])){writeTimecourse=true;}
+
+        System.out.println("Perturbation1\tPerturbation2\tPerturbation3\tPerturbation4\tApofrac1\tApofrac2\tApofrac3\tApofrac\tProlfrac1\tProlfrac2\tProlfrac3\tProlfrac4\tProlfrac");
+        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,seed);
+        double Apofraction1=(double) timecourseResult.get(0);
+        double Apofraction2=(double) timecourseResult.get(1);
+        double Apofraction3=(double) timecourseResult.get(2);
+        double Prolfraction1=(double) timecourseResult.get(3);
+        double Prolfraction2=(double) timecourseResult.get(4);
+        double Prolfraction3=(double) timecourseResult.get(5);
+        double Prolfraction4=(double) timecourseResult.get(6);
+        double Apofraction=(double) timecourseResult.get(7);
+        double Prolfraction=(double) timecourseResult.get(8);
+        System.out.println(PertNodeString1+"="+PertNodeState1+"\t"+PertNodeString2+"="+PertNodeState2+"\t"+PertNodeString3+"="+PertNodeState3+"\t"+PertNodeString4+"="+PertNodeState4+"\t"+Apofraction1+"\t"+Apofraction2+"\t"+Apofraction3+"\t"+Apofraction+"\t"+Prolfraction1+"\t"+Prolfraction2+"\t"+Prolfraction3+"\t"+Prolfraction4+"\t"+Prolfraction);                
+                
+    }
+    
     public static Network GenerateModel(String fileName) throws ScriptException {
         Network nw = null;        
         File fName = new File(fileName);
@@ -226,10 +271,9 @@ public class NetworkSimulations {
         
     }
    
-    
     public static List<Double> runTimecourse(Network nw,String [] args,int numberOfPerturbations, int timePerturbationStart, boolean writeTimecourse, String timecourseFileName, int seed){
         
-        String PertNodeString1 = null,PertNodeString2 = null,PertNodeString3 = null,PertNodeState1 = null,PertNodeState2 = null,PertNodeState3 = null; 
+        String PertNodeString1 = null,PertNodeString2 = null,PertNodeString3 = null,PertNodeString4 = null,PertNodeState1 = null,PertNodeState2 = null,PertNodeState3 = null,PertNodeState4 = null; 
         Random rand = new Random(seed);
         String fileName=args[0].split("\\.")[0];
         if(numberOfPerturbations>0){
@@ -239,8 +283,12 @@ public class NetworkSimulations {
                     PertNodeString2=args[6]; //Node 2 that wil be perturbed
                     PertNodeState2=args[7]; //Node state of the perturbed node 2. Must be 0 or 1       
                     if(numberOfPerturbations>2){
-                        PertNodeString3=args[8]; //Node 2 that wil be perturbed
-                        PertNodeState3=args[9]; //Node state of the perturbed node 2. Must be 0 or 1        
+                        PertNodeString3=args[8]; //Node 3 that wil be perturbed
+                        PertNodeState3=args[9]; //Node state of the perturbed node 3. Must be 0 or 1
+                        if(numberOfPerturbations>3){
+                            PertNodeString4=args[10]; //Node 4 that wil be perturbed
+                            PertNodeState4=args[11]; //Node state of the perturbed node 4. Must be 0 or 1        
+                        }
                     }
                 }
             }
@@ -261,7 +309,7 @@ public class NetworkSimulations {
                 
         int index;
         boolean steadyState;
-        int updateNode,KOnode1 = 0,KOnode2 = 0,KOnode3 = 0;
+        int updateNode,KOnode1 = 0,KOnode2 = 0,KOnode3 = 0,KOnode4 = 0;
         double Apofraction1,Apofraction2,Apofraction3,Prolfraction1,Prolfraction2,Prolfraction3,Prolfraction4,Prolfraction,Apofraction;
         double apo,prol;
         int Apofraction1Ind,Apofraction2Ind,Apofraction3Ind,Prolfraction1Ind,Prolfraction2Ind,Prolfraction3Ind,Prolfraction4Ind;
@@ -287,7 +335,13 @@ public class NetworkSimulations {
         //Ntime=1;
         //fast=new ArrayList<Integer>();
         //for(int i=0;i<indexDictionary.size();i++){fast.add(new Integer(i));}
-                                         
+        
+        List<ArrayList<Double>> Apoptosis_Proliferation_Weights = ApoptosisProliferationWeights(fileName);
+        ArrayList<Double> ApoptosisWeights=Apoptosis_Proliferation_Weights.get(0);
+        ArrayList<Double> ProliferationWeights=Apoptosis_Proliferation_Weights.get(1);
+        //for(int i=0;i<ApoptosisWeights.size();i++){System.out.println("Apo"+(i+1)+"\t"+ApoptosisWeights.get(i));}
+        //for(int i=0;i<ProliferationWeights.size();i++){System.out.println("Prol"+(i+1)+"\t"+ProliferationWeights.get(i));}
+                                               
         Apofraction1=0;Apofraction2=0;Apofraction3=0;Prolfraction1=0;Prolfraction2=0;Prolfraction3=0;Prolfraction4=0;Apofraction=0;Prolfraction=0;
         trajectory=new double[Tprint][N];
         trajectory2=new double[Tprint][2];
@@ -305,11 +359,15 @@ public class NetworkSimulations {
                     if(numberOfPerturbations>2){
                         KOnode3=(int) indexDictionary.get(PertNodeString3);
                         KOnodes.add(new Integer(KOnode3));
+                        if(numberOfPerturbations>3){
+                            KOnode3=(int) indexDictionary.get(PertNodeString4);
+                            KOnodes.add(new Integer(KOnode4));
+                        }
                     }
                 }
             }
-            if(nodeStates[Apofraction3Ind]==1){apo=1;}else if(nodeStates[Apofraction2Ind]==1){apo=0.5;}else if(nodeStates[Apofraction1Ind]==1){apo=0.25;}else{apo=0;}
-            if(nodeStates[Prolfraction4Ind]==1){prol=1;}else if(nodeStates[Prolfraction3Ind]==1){prol=0.5;}else if(nodeStates[Prolfraction2Ind]==1){prol=0.25;}else if(nodeStates[Prolfraction1Ind]==1){prol=0.125;}else{prol=0;}
+            if(nodeStates[Apofraction3Ind]==1){apo=ApoptosisWeights.get(2);}else if(nodeStates[Apofraction2Ind]==1){apo=ApoptosisWeights.get(1);}else if(nodeStates[Apofraction1Ind]==1){apo=ApoptosisWeights.get(0);}else{apo=0;}
+            if(nodeStates[Prolfraction4Ind]==1){prol=ProliferationWeights.get(3);}else if(nodeStates[Prolfraction3Ind]==1){prol=ProliferationWeights.get(2);}else if(nodeStates[Prolfraction2Ind]==1){prol=ProliferationWeights.get(1);}else if(nodeStates[Prolfraction1Ind]==1){prol=ProliferationWeights.get(0);}else{prol=0;}
             steadyState=false;
             for(int t=0;t<Tprint;t++){
                 if(!steadyState){
@@ -320,6 +378,9 @@ public class NetworkSimulations {
                                 nodeStates[KOnode2]=Integer.parseInt(PertNodeState2);
                                 if(numberOfPerturbations>2){
                                     nodeStates[KOnode3]=Integer.parseInt(PertNodeState3);
+                                    if(numberOfPerturbations>3){
+                                        nodeStates[KOnode4]=Integer.parseInt(PertNodeState4);
+                                    }
                                 }
                             }
                         }    
@@ -339,13 +400,16 @@ public class NetworkSimulations {
                                 if(updateNode==KOnode2&&t>=timePerturbationStart){nodeStates[KOnode2]=Integer.parseInt(PertNodeState2);}
                                 if(numberOfPerturbations>2){
                                     if(updateNode==KOnode3&&t>=timePerturbationStart){nodeStates[KOnode3]=Integer.parseInt(PertNodeState3);}
+                                    if(numberOfPerturbations>3){
+                                        if(updateNode==KOnode4&&t>=timePerturbationStart){nodeStates[KOnode4]=Integer.parseInt(PertNodeState4);}
+                                    }
                                 }
                             }
                         }                      
                     }
 
-                    if(nodeStates[Apofraction3Ind]==1){apo=1;}else if(nodeStates[Apofraction2Ind]==1){apo=0.5;}else if(nodeStates[Apofraction1Ind]==1){apo=0.25;}else{apo=0;}
-                    if(nodeStates[Prolfraction4Ind]==1){prol=1;}else if(nodeStates[Prolfraction3Ind]==1){prol=0.5;}else if(nodeStates[Prolfraction2Ind]==1){prol=0.25;}else if(nodeStates[Prolfraction1Ind]==1){prol=0.125;}else{prol=0;}            
+                    if(nodeStates[Apofraction3Ind]==1){apo=ApoptosisWeights.get(2);}else if(nodeStates[Apofraction2Ind]==1){apo=ApoptosisWeights.get(1);}else if(nodeStates[Apofraction1Ind]==1){apo=ApoptosisWeights.get(0);}else{apo=0;}
+                    if(nodeStates[Prolfraction4Ind]==1){prol=ProliferationWeights.get(3);}else if(nodeStates[Prolfraction3Ind]==1){prol=ProliferationWeights.get(2);}else if(nodeStates[Prolfraction2Ind]==1){prol=ProliferationWeights.get(1);}else if(nodeStates[Prolfraction1Ind]==1){prol=ProliferationWeights.get(0);}else{prol=0;}
                     if(t>=timePerturbationStart){
                          steadyState=checkSteadyState(nw,nodeStates,KOnodes);
                     }
@@ -364,8 +428,9 @@ public class NetworkSimulations {
             if(nodeStates[(int) indexDictionary.get("Proliferation_2")]==1){Prolfraction2=Prolfraction2+1;}
             if(nodeStates[(int) indexDictionary.get("Proliferation_3")]==1){Prolfraction3=Prolfraction3+1;}
             if(nodeStates[(int) indexDictionary.get("Proliferation_4")]==1){Prolfraction4=Prolfraction4+1;}
-            if(nodeStates[Apofraction3Ind]==1){Apofraction=Apofraction+1;}else if(nodeStates[Apofraction2Ind]==1){Apofraction=Apofraction+0.5;}else if(nodeStates[Apofraction1Ind]==1){Apofraction=Apofraction+0.25;}else{}
-            if(nodeStates[Prolfraction4Ind]==1){Prolfraction=Prolfraction+1;}else if(nodeStates[Prolfraction3Ind]==1){Prolfraction=Prolfraction+0.5;}else if(nodeStates[Prolfraction2Ind]==1){Prolfraction=Prolfraction+0.25;}else if(nodeStates[Prolfraction1Ind]==1){Prolfraction=Prolfraction+0.125;}else{}
+            
+            if(nodeStates[Apofraction3Ind]==1){Apofraction=Apofraction+ApoptosisWeights.get(2);}else if(nodeStates[Apofraction2Ind]==1){Apofraction=Apofraction+ApoptosisWeights.get(1);}else if(nodeStates[Apofraction1Ind]==1){Apofraction=Apofraction+ApoptosisWeights.get(0);}else{}
+            if(nodeStates[Prolfraction4Ind]==1){Prolfraction=Prolfraction+ProliferationWeights.get(3);}else if(nodeStates[Prolfraction3Ind]==1){Prolfraction=Prolfraction+ProliferationWeights.get(2);}else if(nodeStates[Prolfraction2Ind]==1){Prolfraction=Prolfraction+ProliferationWeights.get(1);}else if(nodeStates[Prolfraction1Ind]==1){Prolfraction=Prolfraction+ProliferationWeights.get(0);}else{}
             
         }
             Apofraction1=Apofraction1/IC;
@@ -407,6 +472,37 @@ public class NetworkSimulations {
         }  
         
         return Arrays.asList(fast, slow);
+    
+    }
+    
+    public static List<ArrayList<Double>> ApoptosisProliferationWeights(String filename){
+        
+        ArrayList<Double> ApoptosisWeights=new ArrayList<>(); //This array stores the weights for Apoptosis1-Apoptosis3
+        ArrayList<Double> ProliferationWeights=new ArrayList<>(); //This array stores the weights for Proliferation1-Proliferation4
+        FileToRead fr=new FileToRead(filename+"_ApoptosisProliferationWeights.txt");
+        String line;
+        String[] line_split;
+        int counter=0;
+        
+        //The order of the files is taken to be 
+        while(fr.hasNext()){
+            line=fr.nextLine();
+            line_split=line.split("\t");
+            if(counter==0){
+                ApoptosisWeights.add(Double.parseDouble(line_split[0])); //Apoptosis1
+                ApoptosisWeights.add(Double.parseDouble(line_split[1])); //Apoptosis2
+                ApoptosisWeights.add(Double.parseDouble(line_split[2])); //Apoptosis3
+            }
+            if(counter==1){
+                ProliferationWeights.add(Double.parseDouble(line_split[0])); //Proliferation1
+                ProliferationWeights.add(Double.parseDouble(line_split[1])); //Proliferation2
+                ProliferationWeights.add(Double.parseDouble(line_split[2])); //Proliferation3
+                ProliferationWeights.add(Double.parseDouble(line_split[3])); //Proliferation4
+            }
+            counter++;
+        }
+                           
+        return Arrays.asList(ApoptosisWeights, ProliferationWeights);
     
     }
 

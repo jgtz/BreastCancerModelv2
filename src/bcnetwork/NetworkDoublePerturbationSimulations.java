@@ -28,7 +28,7 @@ public class NetworkDoublePerturbationSimulations {
      * @param args args[0] is the name of the TXT file where the model rules are. For the breast cancer model it is "BreastCancerModel_ZanudoEtAl2017.txt".
      * args[1] is the number of initial conditions
      * args[2] is the number of normalized timesteps (number of timesteps equal to the average time needed to update a slow node)
-     * @param nw Network model that will be simulated
+     * @param nw Network object with the model already imported
      */
     
         public static void main(String[] args, Network nw) {

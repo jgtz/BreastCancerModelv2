@@ -37,7 +37,7 @@ public class Networkrun {
      * args[4] Whether to write to file the timecourse. Takes the values (without quotes) "true" or "false".
      * args[5] is the node name of the first perturbation, args[6] is the state of the first perturbation
      * args[7] is the node name of the second perturbation, args[8] is the state of the second perturbation
-     * args[9] is the node name of the second perturbation, args[10] is the state of the second perturbation
+     * args[9] is the node name of the third perturbation, args[10] is the state of the third perturbation
      */
     
     public static void main(String[] args) throws ScriptException {
@@ -65,6 +65,7 @@ public class Networkrun {
                 if(test.length==6){NetworkSimulations.SinglePerturbationTimecourse(test,nw);} 
                 if(test.length==8){NetworkSimulations.DoublePerturbationTimecourse(test,nw);}
                 if(test.length==10){NetworkSimulations.TriplePerturbationTimecourse(test,nw);}
+                if(test.length==12){NetworkSimulations.QuadruplePerturbationTimecourse(test,nw);}
             }
             
             else{
