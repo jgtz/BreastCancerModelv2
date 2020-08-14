@@ -52,7 +52,7 @@ In addition, we provide the MCF7-specific, T47D-specific, and the more general m
 
 The file specifying the Booelan functions follows the Booleannet format (see [here](https://github.com/ialbert/booleannet) or [here](http://colomoto.org/biolqm/doc/formats.html)). In this format the text before the "*=" symbol is the node name, while the text after the "*=" symbol is the Boolean function of the node:
 
-"
+```
 #BOOLEAN RULES
 Node1 *= Node2 or Node3
 Node2 *= Node1 and Node2
@@ -61,11 +61,11 @@ Node4 *= 1
 Node5 *= 0
 ...
 NodeN *= not Node1 or (Node1 and Node2)
-"
+```
 
 **Node names**
 
-For the node n*ames use only alphanumeric characters (A-Z,a-z), numbers (0-9) and "_". The reserved words for the program, which shouldn't be used for node names, are: "True", "False", "true", "false", "0", "1", "and", "or", and "not".
+For the node names use only alphanumeric characters (A-Z,a-z), numbers (0-9) and "_". The reserved words for the program, which shouldn't be used for node names, are: "True", "False", "true", "false", "0", "1", "and", "or", and "not".
 
 **Boolean functions**
 
