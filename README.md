@@ -34,7 +34,9 @@ The Java library consists of four classes:
 
 To reproduce the results of the model, we recommend using the Jupyter notebook (see the **Reproducing the model results** section in this README). To run the Java library, we need the executable JAR file *BreastCancerModel.jar* and the library folder *lib*, both of which are located in the [dist folder](https://github.com/jgtz/BreastCancerModelv2/tree/master/dist). With these, we can run the Java library through the command line with:
 
-java -jar BreastCancerModel.jar arg
+```
+java -jar BreastCancerModel.jar args
+```
 
 where *arg* is a set of space-separated arguments specified [here](https://github.com/jgtz/BreastCancerModelv2/blob/master/src/bcnetwork/Networkrun.java#L28).
 
