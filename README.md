@@ -19,9 +19,9 @@ The model starts from a cancer steady state initial condition that can be primed
 The Java library consists of four classes:
 
 1) *Networkrun.java*. This is the main class of the Java library. From this class one can
-  - Call *NetworkSimulations.java* to generate the model Boolean tables. One needs to generate these tables before running simulations on the model.
-  - Call *NetworkSimulations.java* to run simulations on the model without perturbations or with up to 4 perturbations.
-  - Run all the model simulations in [Zañudo et al. 2017](https://doi.org/10.1186/s41236-017-0007-6). This call all three classes.
+   - Call *NetworkSimulations.java* to generate the model Boolean tables. One needs to generate these tables before running simulations on the model.
+   - Call *NetworkSimulations.java* to run simulations on the model without perturbations or with up to 4 perturbations.
+   - Run all the model simulations in [Zañudo et al. 2017](https://doi.org/10.1186/s41236-017-0007-6). This call all three classes.
 
 2) *NetworkSimulations.java*. This class contains the bulk of the funcitonality of the Java library. This class contains functions to generate the model Boolean tables, run simulations of the model with or without perturbations, write the timecourse of the simulations, and several others related functions.
 
