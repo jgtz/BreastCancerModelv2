@@ -1,0 +1,7 @@
+0
+2
+0001_ER_transcription_feedback_1	0000_ER_transcription_feedback_2
+0	0	0
+1	0	1
+0	1	1
+1	1	1

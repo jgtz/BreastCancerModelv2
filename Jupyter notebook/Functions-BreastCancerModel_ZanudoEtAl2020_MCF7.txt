@@ -1,0 +1,100 @@
+  (  ER_transcription_feedback_1  )  or  (  ER_transcription_feedback_2  ) 
+  (  ER_transcription_2  ) 
+  (  HER3_microenvironment  ) 
+  (  ER_microenvironment  ) 
+  (  FOXA1 and KMT2D and ESR1_2 and ER_transcription and PBX1  ) 
+  (  ER_transcription_2  )  or  (  ESR1_2  )  or  (  ESR1  ) 
+  (  MYC_targets_2 and E2F_2  )  or  (  MYC_targets_2 and E2F  ) 
+ 0
+  (  E2F_2  ) 
+  (  MYC_targets  )  or  (  E2F  ) 
+  (  MYC_targets and Translation and MYC  )  or  (  MYC_targets and MYC_2  ) 
+  (  cycD_CDK46 and cyclinD_2 and CDK46  ) 
+  (  BIM and ~BCL2 and ~BCLXL and ~MCL1  )  or  (  Apoptosis_3  ) 
+  (  ~BCL2 and ~BCLXL and ~MCL1  )  or  (  Apoptosis_2  ) 
+  (  E2F  )  or  (  E2F_2  ) 
+  (  Translation  )  or  (  MYC  )  or  (  MYC_targets_2  )  or  (  MYC_2  ) 
+  (  Palbociclib  ) 
+  (  Fulvestrant  ) 
+  (  Ipatasertib  ) 
+  (  S6K and EIF4F  ) 
+  (  cyclinD_2 and CDK46  )  or  (  cyclinD and CDK46  )  or  (  cycD_CDK46_2  ) 
+  (  Everolimus  ) 
+  (  Navitoclax  ) 
+  (  Trametinib  ) 
+  (  p21_T and ~MYC and ~MYC_2  )  or  (  ~MYC and p27_T and ~MYC_2  )  or  (  ~MYC and ~MYC_2 and p21_T_2  )  or  (  p21_T and FOXO3 and ~MYC_2  )  or  (  p27_T and FOXO3 and ~MYC_2  )  or  (  FOXO3 and ~MYC_2 and p21_T_2  ) 
+  (  IGF1R_T_2 and IGF1R_T  ) 
+  (  Neratinib  ) 
+  (  cyclinD and MYC_2  ) 
+  (  BAD and BIM  )  or  (  Apoptosis  ) 
+  (  PIP3_2 and ~Everolimus  )  or  (  PIP3 and ~Everolimus  ) 
+  (  Alpelisib  ) 
+  (  cycE_CDK2_T and ~p21_p27  ) 
+  (  HER3_microenvironment and HER2 and ~MAPK_2 and ~Neratinib and HER2_3 and HER3  )  or  (  HER3_microenvironment and HER2 and ~Neratinib and HER3_2 and HER2_3  ) 
+  (  MAPK_2  ) 
+ 0
+  (  p21_p27_T and ~PIM and ~AKT  ) 
+  (  p21_T and p21_T_2  ) 
+  (  IGF1R_T_2  )  or  (  IGF1R_T  ) 
+ 0
+  (  ~S6K and HER2 and FOXO3 and IGF1R  )  or  (  IGF1R_T_2 and IGF1R  ) 
+  (  MYC  )  or  (  cyclinD_2  ) 
+  (  PIP3_2  )  or  (  PIP3  ) 
+ 0
+  (  ~PTEN_2 and PI3K_2 and PIP3  ) 
+  (  FOXO3 and HER3  ) 
+  (  S63845  ) 
+  (  ~PRAS40 and ~Everolimus  )  or  (  ~TSC and ~Everolimus  ) 
+  (  mTORC2 and ~Everolimus  ) 
+  (  ~ER_transcription_feedback_2 and FOXO3 and ER and ESR1 and ~Fulvestrant  )  or  (  FOXO3 and ER and ESR1 and ER_microenvironment and ~Fulvestrant  ) 
+ 1
+  (  HER2 and ~Neratinib and HER3_2  )  or  (  HER2 and ~Neratinib and HER3  )  or  (  HER2_3_2  ) 
+  (  PIP3_2 and RAS_2 and MAPK and ~Trametinib  )  or  (  RAS_2 and PIP3 and MAPK and ~Trametinib  )  or  (  PIP3_2 and RAS_3 and MAPK  )  or  (  PIP3 and RAS_3 and MAPK  ) 
+  (  PTEN and PTEN_T_2  ) 
+ 0
+  (  ~PIM and ~AKT  ) 
+ 0
+  (  PI3K and HER2_3_2 and ~Alpelisib  ) 
+ 1
+  (  BIM_T  ) 
+  (  ~Palbociclib  ) 
+  (  mTORC1  ) 
+  (  ~Navitoclax and BCLXL_T  ) 
+  (  p21_T  )  or  (  p21_T_2  ) 
+  (  ER_transcription_2 and MYC  )  or  (  MYC and MYC_T  ) 
+  (  ~FOXO3_Ub and ~PIM and ~AKT and ~SGK1  ) 
+ 0
+  (  ~AKT  ) 
+ 0
+  (  pRb_2 and E2F  ) 
+ 0
+  (  pRb and cycD_CDK46 and cycE_CDK2  )  or  (  pRb and ~Rb_T  )  or  (  pRb and cycD_CDK46_2  ) 
+  (  RAS and RAS_2 and HER2_3_2  ) 
+  (  RAS and HER2_3_2  )  or  (  RAS and HER2_3  )  or  (  RAS_3  ) 
+  (  HER2 and FOXO3  )  or  (  IGF1R_2  )  or  (  IGF1R_T  ) 
+ 1
+ 1
+  (  HER3_T  )  or  (  FOXO3  )  or  (  HER3_2  ) 
+ 0
+  (  SGK1_T and mTORC2 and PDK1  ) 
+  (  ~PTEN_2 and PI3K  )  or  (  ~PTEN_2 and PI3K_2  )  or  (  ~PTEN  )  or  (  PIP3_2  ) 
+  (  PIP3_2 and RAS and ~Trametinib  )  or  (  PIP3_2 and RAS_2 and ~Trametinib  )  or  (  RAS and PIP3 and ~Trametinib  )  or  (  RAS_2 and PIP3 and ~Trametinib  )  or  (  PIP3_2 and RAS_3  )  or  (  PIP3 and RAS_3  )  or  (  MAPK_2  ) 
+  (  PTEN_T  )  or  (  PTEN_2  ) 
+  (  ~Navitoclax and BCL2_T  ) 
+ 1
+  (  FOXO3 and ~Fulvestrant  )  or  (  ER and ~Fulvestrant  )  or  (  ESR1_2  ) 
+  (  MCL1_T and ~S63845  ) 
+ 0
+  (  RAS and ~Alpelisib  )  or  (  RAS_2 and ~Alpelisib  )  or  (  RAS_3 and ~Alpelisib  )  or  (  ~Alpelisib and HER2_3  )  or  (  ~Alpelisib and IGF1R  )  or  (  PI3K_2  )  or  (  HER2_3_2  )  or  (  IGF1R_2  ) 
+ 1
+  (  FOXO3 and ~MAPK_2  )  or  (  BIM_T  ) 
+  (  ~PIM and ~AKT and ~MAPK_2  ) 
+  (  ~Rb_T  )  or  (  pRb_2  )  or  (  cycD_CDK46  )  or  (  cycD_CDK46_2  ) 
+  (  ~AKT and ~SGK1 and ~MAPK_2  ) 
+ 0
+  (  mTORC2_pm and PIP3 and ~Ipatasertib  )  or  (  PDK1_pm and PIP3 and ~Ipatasertib  )  or  (  PIP3_2 and mTORC2_pm  )  or  (  PIP3_2 and PDK1_pm  ) 
+  (  mTORC1  ) 
+  (  pRb  )  or  (  E2F_2  ) 
+  (  MYC_2  )  or  (  ER_transcription  ) 
+  (  RAS_2  )  or  (  HER2_3_2  )  or  (  RAS_3  )  or  (  IGF1R_2  )  or  (  HER2_3  )  or  (  IGF1R  ) 
+ 1
