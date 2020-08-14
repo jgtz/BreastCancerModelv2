@@ -50,7 +50,7 @@ In addition, we provide the MCF7-specific, T47D-specific, and the more general m
 
 ##	Format of the model files
 
-The file specifying the Booelan functions follows the Booleannet format (see [here](https://github.com/ialbert/booleannet) or [here](http://colomoto.org/biolqm/doc/formats.html)). In this format the text before the "*=" symbol is the node name, while the text after the "*=" symbol is the Boolean function of the node:
+The file specifying the Booelan functions follows the Booleannet format (see [here](https://github.com/ialbert/booleannet) or [here](http://colomoto.org/biolqm/doc/formats.html)). In this format the text before the "*=" symbol is the node name, while the text after the "\*=" symbol is the Boolean function of the node:
 
 ```
 #BOOLEAN RULES
