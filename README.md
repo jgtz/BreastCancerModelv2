@@ -1,12 +1,20 @@
 # Simulation of cell-specific ER+ *PIK3CA* mutant breast cancer dynamic network models
 
-##	THE PROGRAM
-
-This program simulates the cell-specific ER+ *PIK3CA* breast cancer network models in Zañudo et al. 2020. These models are based on an updated version of the breast cancer network model in Zañudo et al. 2017 (https://doi.org/10.1186/s41236-017-0007-6)
+This program simulates the cell-specific ER+ *PIK3CA* breast cancer network models in Zañudo et al. 2020. These models are based on an updated version of the breast cancer network model in [Zañudo et al. 2017](https://doi.org/10.1186/s41236-017-0007-6)
 
 For more detais on the model, see the accompanying manuscript:
 
-The model starts from a cancer steady state initial condition that can be primed (BIM_T=1) or unprimed (BIM_T=0). The model uses stochastic asynchronous updating, where a single node is updated at each update step and this node is chosen at random. The probability for a node to be selected at each time step depends only on if the node is fast (e.g. signaling events) or slow (e.g. transcriptional events), where we take fast probability taken to be 5 times faster than the slow probability (note that the real timescale difference between these type of events is much larger). The simulations are performed using 10,000 initial coniditions and simulated for 100 time steps, where each time step is defined as the average number of asychronous updates for a slow node to be updated. 
+##	Reproducing the model results
+
+The simplest way to reproduce the model result is through the Jupyter notebook in the [Jupyter notebook](https://github.com/jgtz/BreastCancerModelv2/tree/master/Jupyter%20notebook) folder. You can view the Jupyter notebook [here](https://github.com/jgtz/BreastCancerModelv2/blob/master/Jupyter%20notebook/SimulationsZanudoEtAl2020.ipynb) and we also provide an [HTML version](https://github.com/jgtz/BreastCancerModelv2/blob/master/Jupyter%20notebook/SimulationsZanudoEtAl2020.html) of the results of running the notebook.
+
+##  Model simulations
+
+The breast cancer network models in Zañudo et al. 2020 are discrete network models. To simulate these discrete network models, we first map these models into a Boolean model, which was then simulated using the [BooleanDynamicModeling Java library](https://github.com/jgtz/BooleanDynamicModeling). To simulate multi-level nodes, we use a Boolean variable to denote each level greater than 1. For example, for a 3-level node with states 0, 1, and 2, we have 2 variables (Node and Node_2), and for a 4-level node we have 3 variables (Node, Node_2, and Node_3).
+
+The model starts from a cancer steady state initial condition that can be primed (BIM_T=1) or unprimed (BIM_T=0). The model uses stochastic asynchronous updating, where a single node is updated at each update step and this node is chosen at random. The updating probabilities are chosen by categorizing nodes into either a fast or slow node, according to whether activation of the node denotes a (fast) signaling event or a (slow) transcriptional or translational event. We take fast probability taken to be 5 times faster than the slow probability (note that the real timescale difference between these type of events is much larger). We perform 10,000 simulations in each modeled scenario. The number of time units is 25 for all simulations, where a time unit is equal to the average number of time steps needed to update a slow node.
+
+##	Java library instructions
 
 The different java classes perform different simulations:
 
@@ -16,9 +24,7 @@ The different java classes perform different simulations:
 
 The perturbations in each simulation are started at either time step 0 (for NetworkSinglePerturbationSimulations or NetworkDoublePerturbationSimulations) or time step 2 (NetworkSimulations).
 
-To perform the simulations, the program uses the BooleanDynamicModeling java library (https://github.com/jgtz/BooleanDynamicModeling).
-
-##	INSTRUCTIONS
+##	Running the Java library
 
 To run the program, go to the command line, navigate to the folder where the "BreastCancerModel.jar" file and the "lib" folder are located. Once there type the command:
 
@@ -59,15 +65,15 @@ The program will produce the following:
 
 **BooleanDynamicModeling**
 
-Boolean modeling is using my Boolean modeling Java library (https://github.com/jgtz/BooleanDynamicModeling)
+The simulations of Boolean dynamics use the [BooleanDynamicModeling Java library](https://github.com/jgtz/BooleanDynamicModeling).
 
 **JGraphT**
 
-Several functions from the JGraphT java class library by Barak Naveh and Contributors are used (https://github.com/jgrapht/jgrapht). JGraphT is available under GNU LESSER GENERAL PUBLIC LICENSE Version 2.1.
+Several functions from the [JGraphT java class library](https://github.com/jgrapht/jgrapht) by Barak Naveh and Contributors are used. JGraphT is available under GNU LESSER GENERAL PUBLIC LICENSE Version 2.1.
 
 **Quine-McCluskey_algorithm**
 
-An implementation of the Quine-McCluskey_algorithm in the “Term.java” and “Formula.java” classes were retrieved in 2013 from http://en.literateprograms.org/Quine-McCluskey_algorithm_(Java)?action=history&offset=20110925122251. The “Term.java” and “Formula.java” classes are available under the MIT License.
+An implementation of the Quine-McCluskey_algorithm in the “Term.java” and “Formula.java” classes were retrieved in 2013 from [here](http://en.literateprograms.org/Quine-McCluskey_algorithm_(Java)?action=history&offset=20110925122251). The “Term.java” and “Formula.java” classes are available under the MIT License.
 
 ##	COPYRIGHT
 
