@@ -6,7 +6,7 @@ For more detais on the model, see the accompanying manuscript:
 
 ##	Reproducing the model results
 
-The simplest way to reproduce the model result is through the Jupyter notebook in the [Jupyter notebook](https://github.com/jgtz/BreastCancerModelv2/tree/master/Jupyter%20notebook) folder. You can view the Jupyter notebook [here](https://github.com/jgtz/BreastCancerModelv2/blob/master/Jupyter%20notebook/SimulationsZanudoEtAl2020.ipynb) and we also provide an [HTML version](https://github.com/jgtz/BreastCancerModelv2/blob/master/Jupyter%20notebook/SimulationsZanudoEtAl2020.html) of the results of running the notebook.
+The simplest way to reproduce the model result is through the [Jupyter notebook](https://github.com/jgtz/BreastCancerModelv2/blob/master/Jupyter%20notebook/SimulationsZanudoEtAl2020.ipynb) in the [Jupyter notebook folder](https://github.com/jgtz/BreastCancerModelv2/tree/master/Jupyter%20notebook). You can view the Jupyter notebook [here](https://github.com/jgtz/BreastCancerModelv2/blob/master/Jupyter%20notebook/SimulationsZanudoEtAl2020.ipynb) and we also provide an [HTML version](https://github.com/jgtz/BreastCancerModelv2/blob/master/Jupyter%20notebook/SimulationsZanudoEtAl2020.html) of the results of running the notebook.
 
 ##  Model simulations
 
