@@ -4,6 +4,8 @@ This program simulates the cell line-specific ER+ *PIK3CA* breast cancer network
 
 For more detais on the model, see the accompanying manuscript:
 
+Jorge Gómez Tejeda Zañudo, Pingping Mao, Clara Alcon, Kailey J. Kowalski, Gabriela N. Johnson, Guotai Xu, José Baselga, Maurizio Scaltriti, Anthony Letai, Joan Montero, Reka Albert, Nikhil Wagle. (2020). Cell-line-specific network models of ER+ breast cancer identify PI3Kα inhibitor sensitivity factors and drug combinations. *bioRxiv* 2020.08.25.261370; doi: https://doi.org/10.1101/2020.08.25.261370
+
 ##	Reproducing the model results
 
 The simplest way to reproduce the model result is through the [Jupyter notebook](https://github.com/jgtz/BreastCancerModelv2/blob/master/Jupyter%20notebook/SimulationsZanudoEtAl2020.ipynb) in the [Jupyter notebook folder](https://github.com/jgtz/BreastCancerModelv2/tree/master/Jupyter%20notebook). You can view the Jupyter notebook [here](https://github.com/jgtz/BreastCancerModelv2/blob/master/Jupyter%20notebook/SimulationsZanudoEtAl2020.ipynb) and we also provide an [HTML version](https://github.com/jgtz/BreastCancerModelv2/blob/master/Jupyter%20notebook/SimulationsZanudoEtAl2020.html) of the results of running the notebook.
