@@ -1,6 +1,6 @@
 # Simulation of cell line-specific ER+ *PIK3CA* mutant breast cancer dynamic network models
 
-This program simulates the cell line-specific ER+ *PIK3CA* breast cancer network models in Zañudo et al. 2020. These models are based on an updated version of the breast cancer network model in [Zañudo et al. 2017](https://doi.org/10.1186/s41236-017-0007-6)
+This program simulates the cell line-specific ER+ *PIK3CA* breast cancer network models in [Zañudo et al. 2020](https://doi.org/10.1101/2020.08.25.261370). These models are based on an updated version of the breast cancer network model in [Zañudo et al. 2017](https://doi.org/10.1186/s41236-017-0007-6)
 
 For more detais on the model, see the accompanying manuscript:
 
