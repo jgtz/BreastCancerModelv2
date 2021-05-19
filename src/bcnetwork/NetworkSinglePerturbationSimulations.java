@@ -61,7 +61,7 @@ public class NetworkSinglePerturbationSimulations {
         for(Integer s0: state1){
                 for(int i0=0;i0<nw.getN();i0++){
                     test[6]=nw.getNames()[i0];test[7]=""+s0;
-                    List timecourseResult=NetworkSimulations.runTimecourse(nw,test,numberOfPerturbations,timePerturbationStart, false,"",seed);
+                    List timecourseResult=NetworkSimulations.runTimecourse(nw,test,numberOfPerturbations,timePerturbationStart, false,"","",seed);
                     double Apofraction1=(double) timecourseResult.get(0);
                     double Apofraction2=(double) timecourseResult.get(1);
                     double Apofraction3=(double) timecourseResult.get(2);

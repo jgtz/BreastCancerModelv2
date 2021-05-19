@@ -47,6 +47,7 @@ public class NetworkSimulations {
         
         String fileName=args[0]; //This file contains the Boolean rules of the model              
         String timecourseFileName="timecourse"+fileName.split("\\.")[0]+".txt";
+        String timecourseFileName_2="timecourseSEM"+fileName.split("\\.")[0]+".txt";
         int seed=1000;
         int numberOfPerturbations=0;
         int timePerturbationStart=2;
@@ -54,7 +55,7 @@ public class NetworkSimulations {
         if("true".equals(args[3])){writeTimecourse=true;}
         
         System.out.println("Perturbation\tApofrac1\tApofrac2\tApofrac3\tApofrac\tProlfrac1\tProlfrac2\tProlfrac3\tProlfrac4\tProlfrac");                
-        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,seed);
+        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,timecourseFileName_2,seed);
         double Apofraction1=(double) timecourseResult.get(0);
         double Apofraction2=(double) timecourseResult.get(1);
         double Apofraction3=(double) timecourseResult.get(2);
@@ -84,14 +85,15 @@ public class NetworkSimulations {
         String PertNodeString=args[4]; //Node that wil be perturbed
         String PertNodeState=args[5]; //Node state of the perturbed node. Must be 0 or 1
         int seed=1000;
-        String timecourseFileName="timecourse"+fileName.split("\\.")[0]+"_"+PertNodeString+"="+PertNodeState+".txt"; 
+        String timecourseFileName="timecourse"+fileName.split("\\.")[0]+"_"+PertNodeString+"="+PertNodeState+".txt";
+        String timecourseFileName_2="timecourseSEM"+fileName.split("\\.")[0]+"_"+PertNodeString+"="+PertNodeState+".txt";
         int numberOfPerturbations=1;
         int timePerturbationStart=2; 
         boolean writeTimecourse=false;
         if("true".equals(args[3])){writeTimecourse=true;}     
         
         System.out.println("Perturbation\tApofrac1\tApofrac2\tApofrac3\tApofrac\tProlfrac1\tProlfrac2\tProlfrac3\tProlfrac4\tProlfrac");                
-        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,seed);
+        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName, timecourseFileName_2,seed);
         double Apofraction1=(double) timecourseResult.get(0);
         double Apofraction2=(double) timecourseResult.get(1);
         double Apofraction3=(double) timecourseResult.get(2);
@@ -124,13 +126,14 @@ public class NetworkSimulations {
         String PertNodeState2=args[7]; //Node state of the perturbed node 2. Must be 0 or 1
         int seed=1000;
         String timecourseFileName="timecourse"+fileName.split("\\.")[0]+"_"+PertNodeString1+"="+PertNodeState1+"_"+PertNodeString2+"="+PertNodeState2+".txt";
+        String timecourseFileName_2="timecourseSEM"+fileName.split("\\.")[0]+"_"+PertNodeString1+"="+PertNodeState1+"_"+PertNodeString2+"="+PertNodeState2+".txt";
         int numberOfPerturbations=2;
         int timePerturbationStart=2; 
         boolean writeTimecourse=false;
         if("true".equals(args[3])){writeTimecourse=true;}
         
         System.out.println("Perturbation1\tPerturbation2\tApofrac1\tApofrac2\tApofrac3\tApofrac\tProlfrac1\tProlfrac2\tProlfrac3\tProlfrac4\tProlfrac");                
-        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,seed);
+        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,timecourseFileName_2,seed);
         double Apofraction1=(double) timecourseResult.get(0);
         double Apofraction2=(double) timecourseResult.get(1);
         double Apofraction3=(double) timecourseResult.get(2);
@@ -168,11 +171,12 @@ public class NetworkSimulations {
         int numberOfPerturbations=3;
         int timePerturbationStart=2; 
         String timecourseFileName="timecourse"+fileName.split("\\.")[0]+"_"+PertNodeString1+"="+PertNodeState1+"_"+PertNodeString2+"="+PertNodeState2+"_"+PertNodeString3+"="+PertNodeState3+".txt"; 
+        String timecourseFileName_2="timecourseSEM"+fileName.split("\\.")[0]+"_"+PertNodeString1+"="+PertNodeState1+"_"+PertNodeString2+"="+PertNodeState2+"_"+PertNodeString3+"="+PertNodeState3+".txt"; 
         boolean writeTimecourse=false;
         if("true".equals(args[3])){writeTimecourse=true;}
 
         System.out.println("Perturbation1\tPerturbation2\tPerturbation3\tApofrac1\tApofrac2\tApofrac3\tApofrac\tProlfrac1\tProlfrac2\tProlfrac3\tProlfrac4\tProlfrac");
-        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,seed);
+        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,timecourseFileName_2,seed);
         double Apofraction1=(double) timecourseResult.get(0);
         double Apofraction2=(double) timecourseResult.get(1);
         double Apofraction3=(double) timecourseResult.get(2);
@@ -213,11 +217,12 @@ public class NetworkSimulations {
         int numberOfPerturbations=4;
         int timePerturbationStart=2; 
         String timecourseFileName="timecourse"+fileName.split("\\.")[0]+"_"+PertNodeString1+"="+PertNodeState1+"_"+PertNodeString2+"="+PertNodeState2+"_"+PertNodeString3+"="+PertNodeState3+"_"+PertNodeString4+"="+PertNodeState4+".txt"; 
+        String timecourseFileName_2="timecourseSEM"+fileName.split("\\.")[0]+"_"+PertNodeString1+"="+PertNodeState1+"_"+PertNodeString2+"="+PertNodeState2+"_"+PertNodeString3+"="+PertNodeState3+"_"+PertNodeString4+"="+PertNodeState4+".txt"; 
         boolean writeTimecourse=false;
         if("true".equals(args[3])){writeTimecourse=true;}
 
         System.out.println("Perturbation1\tPerturbation2\tPerturbation3\tPerturbation4\tApofrac1\tApofrac2\tApofrac3\tApofrac\tProlfrac1\tProlfrac2\tProlfrac3\tProlfrac4\tProlfrac");
-        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,seed);
+        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName, timecourseFileName_2,seed);
         double Apofraction1=(double) timecourseResult.get(0);
         double Apofraction2=(double) timecourseResult.get(1);
         double Apofraction3=(double) timecourseResult.get(2);
@@ -271,7 +276,7 @@ public class NetworkSimulations {
         
     }
    
-    public static List<Double> runTimecourse(Network nw,String [] args,int numberOfPerturbations, int timePerturbationStart, boolean writeTimecourse, String timecourseFileName, int seed){
+    public static List<Double> runTimecourse(Network nw,String [] args,int numberOfPerturbations, int timePerturbationStart, boolean writeTimecourse, String timecourseFileName, String timecourseFileName_2, int seed){
         
         String PertNodeString1 = null,PertNodeString2 = null,PertNodeString3 = null,PertNodeString4 = null,PertNodeState1 = null,PertNodeState2 = null,PertNodeState3 = null,PertNodeState4 = null; 
         Random rand = new Random(seed);
@@ -315,6 +320,7 @@ public class NetworkSimulations {
         int Apofraction1Ind,Apofraction2Ind,Apofraction3Ind,Prolfraction1Ind,Prolfraction2Ind,Prolfraction3Ind,Prolfraction4Ind;
         int[] nodeStates,pastState;
         double[][] trajectory,trajectory2;
+        double[][] trajectory_squared,trajectory2_squared;
         ArrayList<Integer> KOnodes=new ArrayList<Integer>();
         HashMap<String,String> initialCondition;
  
@@ -345,9 +351,11 @@ public class NetworkSimulations {
         Apofraction1=0;Apofraction2=0;Apofraction3=0;Prolfraction1=0;Prolfraction2=0;Prolfraction3=0;Prolfraction4=0;Apofraction=0;Prolfraction=0;
         trajectory=new double[Tprint][N];
         trajectory2=new double[Tprint][2];
+        trajectory_squared=new double[Tprint][N];
+        trajectory2_squared=new double[Tprint][2];
         initialCondition=getInitialCondition(fileName);
-        for(int t=0;t<Tprint;t++){for(int i=0;i<N;i++){trajectory[t][i]=0;}}
-        for(int t=0;t<Tprint;t++){for(int i=0;i<2;i++){trajectory2[t][i]=0;}}
+        for(int t=0;t<Tprint;t++){for(int i=0;i<N;i++){trajectory[t][i]=0;trajectory_squared[t][i]=0;}}
+        for(int t=0;t<Tprint;t++){for(int i=0;i<2;i++){trajectory2[t][i]=0;trajectory2_squared[t][i]=0;}}
         for(int r=0;r<IC;r++){
             nodeStates=setInitialCondition(indexDictionary,initialCondition,rand); 
             if(numberOfPerturbations>0){
@@ -386,9 +394,11 @@ public class NetworkSimulations {
                         }    
                     }
 
-                    for(int i=0;i<N;i++){trajectory[t][i]+=1.0*nodeStates[i];}
+                    for(int i=0;i<N;i++){trajectory[t][i]+=1.0*nodeStates[i];trajectory_squared[t][i]+=1.0*nodeStates[i]*nodeStates[i];}
                     trajectory2[t][0]+=1.0*prol;
                     trajectory2[t][1]+=1.0*apo;
+                    trajectory2_squared[t][0]+=1.0*prol*prol;
+                    trajectory2_squared[t][1]+=1.0*apo*apo;
                     for(int n=0;n<Nprint;n++){
                         if(rand.nextDouble()>=p){index=(int)(rand.nextDouble()*fast.size());updateNode=fast.get(index);}
                         else{index=(int)(rand.nextDouble()*slow.size());updateNode=slow.get(index);}
@@ -415,9 +425,11 @@ public class NetworkSimulations {
                     }
                 }
                 else{
-                    for(int i=0;i<N;i++){trajectory[t][i]+=1.0*nodeStates[i];}
+                    for(int i=0;i<N;i++){trajectory[t][i]+=1.0*nodeStates[i];trajectory_squared[t][i]+=1.0*nodeStates[i]*nodeStates[i];}
                     trajectory2[t][0]+=1.0*prol;
-                    trajectory2[t][1]+=1.0*apo;   
+                    trajectory2[t][1]+=1.0*apo;
+                    trajectory2_squared[t][0]+=1.0*prol*prol;
+                    trajectory2_squared[t][1]+=1.0*apo*apo;  
                 }
             }
 
@@ -444,7 +456,7 @@ public class NetworkSimulations {
             Prolfraction=Prolfraction/IC;
             
             if(writeTimecourse){
-                writeTrajectory(nw,N,IC,Tprint,trajectory,trajectory2,(double)(Nprint)/(double)(Ntime),timecourseFileName);
+                writeTrajectory(nw,N,IC,Tprint,trajectory,trajectory2,trajectory_squared,trajectory2_squared,(double)(Nprint)/(double)(Ntime),timecourseFileName,timecourseFileName_2);
             }
             
             return Arrays.asList(Apofraction1,Apofraction2,Apofraction3,Prolfraction1,Prolfraction2,Prolfraction3,Prolfraction4,Apofraction,Prolfraction);
@@ -555,10 +567,12 @@ public class NetworkSimulations {
     }
  
     
-    public static void writeTrajectory(Network nw, int N,int IC,int T,double[][] trajectory,double[][] trajectory2,double timeUnit, String filename){
+     public static void writeTrajectory(Network nw, int N,int IC,int T,double[][] trajectory,double[][] trajectory2,double[][] trajectory_squared,double[][] trajectory2_squared,double timeUnit, String filename, String filename2){
     
         //This writes out the timecourse of the average activity in the TXT file
         FileToWrite fw=new FileToWrite(filename); //The average time course is stored in this
+        FileToWrite fw2=new FileToWrite(filename2); //The SD of the average time course is stored in this
+        double moment_2,moment_1_squared,variance_estimate;
         //tabseparated file. Every row is the average state of a node while every column is the time step
         String line;
         
@@ -587,6 +601,38 @@ public class NetworkSimulations {
         }
         
         fw.close();
+        
+        line="\t";
+        for(int t=0;t<T;t++){
+            line=line+timeUnit*t+"\t";
+            
+        }
+        fw2.writeLine(line);
+        
+        for(int i=0;i<N;i++){
+            line=nw.getNames()[i]+"\t";
+            for(int t=0;t<T;t++){
+                moment_2=trajectory_squared[t][i]/IC;
+                moment_1_squared=(trajectory[t][i]/IC)*(trajectory[t][i]/IC);
+                variance_estimate=(IC/(IC-1))*(moment_2-moment_1_squared);
+                line=line+(1.0/Math.sqrt(IC))*Math.sqrt(variance_estimate)+"\t";
+            }
+            fw2.writeLine(line);
+        }
+        for(int i=0;i<2;i++){
+            line="";
+            if(i==0){line="Proliferation_norm\t";}
+            if(i==1){line="Apoptosis_norm\t";}
+            for(int t=0;t<T;t++){
+                moment_2=trajectory2_squared[t][i]/IC;
+                moment_1_squared=(trajectory2[t][i]/IC)*(trajectory2[t][i]/IC);
+                variance_estimate=(IC/(IC-1))*(moment_2-moment_1_squared);
+                line=line+(1.0/Math.sqrt(IC))*Math.sqrt(variance_estimate)+"\t";
+            }
+            fw2.writeLine(line);
+        }
+        
+        fw2.close();
         
     }
     

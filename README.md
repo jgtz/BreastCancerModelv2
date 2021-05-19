@@ -12,6 +12,22 @@ For more detais on the model, see the accompanying manuscript:
 
 The simplest way to reproduce the model result is through the [Jupyter notebook](https://github.com/jgtz/BreastCancerModelv2/blob/master/Jupyter%20notebook/SimulationsZanudoEtAl2020.ipynb) in the [Jupyter notebook folder](https://github.com/jgtz/BreastCancerModelv2/tree/master/Jupyter%20notebook). You can view the Jupyter notebook [here](https://github.com/jgtz/BreastCancerModelv2/blob/master/Jupyter%20notebook/SimulationsZanudoEtAl2020.ipynb) and we also provide an [HTML version](https://github.com/jgtz/BreastCancerModelv2/blob/master/Jupyter%20notebook/SimulationsZanudoEtAl2020.html) of the results of running the notebook.
 
+##	Recommended Installation
+
+We recommend creating a virtual environment using [Anaconda](https://www.anaconda.com/) to run this program. The required packages and the versions we used for running the program are listed below, together with a command to create a virtual environment in Anaconda with these versions.
+
+Python (version 3.6.8) 
+Java JDK (version 8.0.152) 
+Pandas (version 0.24.2)
+NumPy (version 1.16.4)
+Matplotlib (version 3.1.0)
+Jupyter (version 0.35.5)
+Ipython (version 7.6.1)
+
+```
+conda create -n myenv brca_modelv2 python=3.6.8 openjdk=8.0.152 numpy=1.16.4 matplotlib=3.1.0 pandas=0.24.2 jupyterlab=0.35.5 ipython=7.6.1
+```
+
 ##  Model simulations
 
 The breast cancer network models in Zañudo et al. 2020 are discrete network models. To simulate these discrete network models, we first map these models into a Boolean model, which was then simulated using the [BooleanDynamicModeling Java library](https://github.com/jgtz/BooleanDynamicModeling). To simulate multi-level nodes, we use a Boolean variable to denote each level greater than 1. For example, for a 3-level node with states 0, 1, and 2, we have 2 variables (Node and Node_2), and for a 4-level node we have 3 variables (Node, Node_2, and Node_3).
