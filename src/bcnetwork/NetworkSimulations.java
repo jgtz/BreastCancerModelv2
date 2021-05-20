@@ -41,9 +41,10 @@ public class NetworkSimulations {
      * args[2] is the number of normalized timesteps (number of timesteps equal to the average time needed to update a slow node)
      * args[3] is an option of whether to write to file the timecourse of the simulation
      * @param nw Network object with the model already imported
+     * @param ThirdTimescale Boolean variable, whether to use 3 timescales instead of the 2 timescales used throughout the model.
      */
 
-    public static void BaselineTimecourse(String[] args, Network nw) {
+    public static void BaselineTimecourse(String[] args, Network nw, boolean ThirdTimescale) {
         
         String fileName=args[0]; //This file contains the Boolean rules of the model              
         String timecourseFileName="timecourse"+fileName.split("\\.")[0]+".txt";
@@ -53,9 +54,15 @@ public class NetworkSimulations {
         int timePerturbationStart=2;
         boolean writeTimecourse=false;
         if("true".equals(args[3])){writeTimecourse=true;}
+        if(ThirdTimescale){
+            timecourseFileName="timecourse"+fileName.split("\\.")[0]+"_ThreeTimeScales.txt";
+            timecourseFileName_2="timecourseSEM"+fileName.split("\\.")[0]+"_ThreeTimeScales.txt";
+         }
         
         System.out.println("Perturbation\tApofrac1\tApofrac2\tApofrac3\tApofrac\tProlfrac1\tProlfrac2\tProlfrac3\tProlfrac4\tProlfrac");                
-        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,timecourseFileName_2,seed);
+        List timecourseResult;
+        if(!ThirdTimescale){timecourseResult =runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,timecourseFileName_2,seed);}
+        else{timecourseResult =runTimecourse_ThirdTimescale(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,timecourseFileName_2,seed);}                
         double Apofraction1=(double) timecourseResult.get(0);
         double Apofraction2=(double) timecourseResult.get(1);
         double Apofraction3=(double) timecourseResult.get(2);
@@ -77,9 +84,10 @@ public class NetworkSimulations {
      * args[3] is an option of whether to write to file the timecourse of the simulation
      * args[4] is the node name of the first perturbation, args[5] is the state of the first perturbation
      * @param nw Network object with the model already imported
+     * @param ThirdTimescale Boolean variable, whether to use 3 timescales instead of the 2 timescales used throughout the model.
      */
     
-    public static void SinglePerturbationTimecourse(String[] args, Network nw) {
+    public static void SinglePerturbationTimecourse(String[] args, Network nw, boolean ThirdTimescale) {
         
         String fileName=args[0]; //This file contains the Boolean rules of the model       
         String PertNodeString=args[4]; //Node that wil be perturbed
@@ -90,10 +98,16 @@ public class NetworkSimulations {
         int numberOfPerturbations=1;
         int timePerturbationStart=2; 
         boolean writeTimecourse=false;
-        if("true".equals(args[3])){writeTimecourse=true;}     
+        if("true".equals(args[3])){writeTimecourse=true;}
+        if(ThirdTimescale){
+            timecourseFileName="timecourse"+fileName.split("\\.")[0]+"_"+PertNodeString+"="+PertNodeState+"_ThreeTimeScales.txt";
+            timecourseFileName_2="timecourseSEM"+fileName.split("\\.")[0]+"_"+PertNodeString+"="+PertNodeState+"_ThreeTimeScales.txt";
+         }
         
         System.out.println("Perturbation\tApofrac1\tApofrac2\tApofrac3\tApofrac\tProlfrac1\tProlfrac2\tProlfrac3\tProlfrac4\tProlfrac");                
-        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName, timecourseFileName_2,seed);
+        List timecourseResult;
+        if(!ThirdTimescale){timecourseResult =runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,timecourseFileName_2,seed);}
+        else{timecourseResult =runTimecourse_ThirdTimescale(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,timecourseFileName_2,seed);} 
         double Apofraction1=(double) timecourseResult.get(0);
         double Apofraction2=(double) timecourseResult.get(1);
         double Apofraction3=(double) timecourseResult.get(2);
@@ -115,9 +129,10 @@ public class NetworkSimulations {
      * args[4] is the node name of the first perturbation, args[5] is the state of the first perturbation
      * args[6] is the node name of the second perturbation, args[7] is the state of the second perturbation
      * @param nw Network object with the model already imported
+     * @param ThirdTimescale Boolean variable, whether to use 3 timescales instead of the 2 timescales used throughout the model.
      */
     
-    public static void DoublePerturbationTimecourse(String[] args, Network nw) {
+    public static void DoublePerturbationTimecourse(String[] args, Network nw, boolean ThirdTimescale) {
         
         String fileName=args[0]; //This file contains the Boolean rules of the model               
         String PertNodeString1=args[4]; //Node 1 that wil be perturbed
@@ -131,9 +146,15 @@ public class NetworkSimulations {
         int timePerturbationStart=2; 
         boolean writeTimecourse=false;
         if("true".equals(args[3])){writeTimecourse=true;}
+        if(ThirdTimescale){
+            timecourseFileName="timecourse"+fileName.split("\\.")[0]+"_"+PertNodeString1+"="+PertNodeState1+"_"+PertNodeString2+"="+PertNodeState2+"_ThreeTimeScales.txt";
+            timecourseFileName_2="timecourseSEM"+fileName.split("\\.")[0]+"_"+PertNodeString1+"="+PertNodeState1+"_"+PertNodeString2+"="+PertNodeState2+"_ThreeTimeScales.txt";
+         }
         
         System.out.println("Perturbation1\tPerturbation2\tApofrac1\tApofrac2\tApofrac3\tApofrac\tProlfrac1\tProlfrac2\tProlfrac3\tProlfrac4\tProlfrac");                
-        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,timecourseFileName_2,seed);
+        List timecourseResult;
+        if(!ThirdTimescale){timecourseResult =runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,timecourseFileName_2,seed);}
+        else{timecourseResult =runTimecourse_ThirdTimescale(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,timecourseFileName_2,seed);} 
         double Apofraction1=(double) timecourseResult.get(0);
         double Apofraction2=(double) timecourseResult.get(1);
         double Apofraction3=(double) timecourseResult.get(2);
@@ -156,9 +177,10 @@ public class NetworkSimulations {
      * args[6] is the node name of the second perturbation, args[7] is the state of the second perturbation
      * args[8] is the node name of the third perturbation, args[9] is the state of the third perturbation
      * @param nw Network object with the model already imported
+     * @param ThirdTimescale Boolean variable, whether to use 3 timescales instead of the 2 timescales used throughout the model.
      */    
     
-    public static void TriplePerturbationTimecourse(String[] args, Network nw) {
+    public static void TriplePerturbationTimecourse(String[] args, Network nw, boolean ThirdTimescale) {
         
         String fileName=args[0]; //This file contains the Boolean rules of the model               
         String PertNodeString1=args[4]; //Node 1 that wil be perturbed
@@ -174,9 +196,15 @@ public class NetworkSimulations {
         String timecourseFileName_2="timecourseSEM"+fileName.split("\\.")[0]+"_"+PertNodeString1+"="+PertNodeState1+"_"+PertNodeString2+"="+PertNodeState2+"_"+PertNodeString3+"="+PertNodeState3+".txt"; 
         boolean writeTimecourse=false;
         if("true".equals(args[3])){writeTimecourse=true;}
+        if(ThirdTimescale){
+            timecourseFileName="timecourse"+fileName.split("\\.")[0]+"_"+PertNodeString1+"="+PertNodeState1+"_"+PertNodeString2+"="+PertNodeState2+"_"+PertNodeString3+"="+PertNodeState3+"_ThreeTimeScales.txt"; 
+            timecourseFileName_2="timecourseSEM"+fileName.split("\\.")[0]+"_"+PertNodeString1+"="+PertNodeState1+"_"+PertNodeString2+"="+PertNodeState2+"_"+PertNodeString3+"="+PertNodeState3+"_ThreeTimeScales.txt";
+        }
 
         System.out.println("Perturbation1\tPerturbation2\tPerturbation3\tApofrac1\tApofrac2\tApofrac3\tApofrac\tProlfrac1\tProlfrac2\tProlfrac3\tProlfrac4\tProlfrac");
-        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,timecourseFileName_2,seed);
+        List timecourseResult;
+        if(!ThirdTimescale){timecourseResult =runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,timecourseFileName_2,seed);}
+        else{timecourseResult =runTimecourse_ThirdTimescale(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,timecourseFileName_2,seed);} 
         double Apofraction1=(double) timecourseResult.get(0);
         double Apofraction2=(double) timecourseResult.get(1);
         double Apofraction3=(double) timecourseResult.get(2);
@@ -200,9 +228,10 @@ public class NetworkSimulations {
      * args[8] is the node name of the third perturbation, args[9] is the state of the third perturbation
      * args[10] is the node name of the third perturbation, args[11] is the state of the third perturbation
      * @param nw Network object with the model already imported
+     * @param ThirdTimescale Boolean variable, whether to use 3 timescales instead of the 2 timescales used throughout the model.
      */ 
     
-    public static void QuadruplePerturbationTimecourse(String[] args, Network nw) {
+    public static void QuadruplePerturbationTimecourse(String[] args, Network nw, boolean ThirdTimescale) {
         
         String fileName=args[0]; //This file contains the Boolean rules of the model               
         String PertNodeString1=args[4]; //Node 1 that wil be perturbed
@@ -220,9 +249,15 @@ public class NetworkSimulations {
         String timecourseFileName_2="timecourseSEM"+fileName.split("\\.")[0]+"_"+PertNodeString1+"="+PertNodeState1+"_"+PertNodeString2+"="+PertNodeState2+"_"+PertNodeString3+"="+PertNodeState3+"_"+PertNodeString4+"="+PertNodeState4+".txt"; 
         boolean writeTimecourse=false;
         if("true".equals(args[3])){writeTimecourse=true;}
+        if(ThirdTimescale){
+            timecourseFileName="timecourse"+fileName.split("\\.")[0]+"_"+PertNodeString1+"="+PertNodeState1+"_"+PertNodeString2+"="+PertNodeState2+"_"+PertNodeString3+"="+PertNodeState3+"_"+PertNodeString4+"="+PertNodeState4+"_ThreeTimeScales.txt"; 
+            timecourseFileName_2="timecourseSEM"+fileName.split("\\.")[0]+"_"+PertNodeString1+"="+PertNodeState1+"_"+PertNodeString2+"="+PertNodeState2+"_"+PertNodeString3+"="+PertNodeState3+"_"+PertNodeString4+"="+PertNodeState4+"_ThreeTimeScales.txt";        
+        }
 
         System.out.println("Perturbation1\tPerturbation2\tPerturbation3\tPerturbation4\tApofrac1\tApofrac2\tApofrac3\tApofrac\tProlfrac1\tProlfrac2\tProlfrac3\tProlfrac4\tProlfrac");
-        List timecourseResult=runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName, timecourseFileName_2,seed);
+        List timecourseResult;
+        if(!ThirdTimescale){timecourseResult =runTimecourse(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,timecourseFileName_2,seed);}
+        else{timecourseResult =runTimecourse_ThirdTimescale(nw,args,numberOfPerturbations,timePerturbationStart, writeTimecourse,timecourseFileName,timecourseFileName_2,seed);} 
         double Apofraction1=(double) timecourseResult.get(0);
         double Apofraction2=(double) timecourseResult.get(1);
         double Apofraction3=(double) timecourseResult.get(2);
@@ -482,10 +517,261 @@ public class NetworkSimulations {
             fast.remove(new Integer((int) indexDictionary.get(line)));
             slow.add(new Integer((int) indexDictionary.get(line)));           
         }  
+        fr.close();
         
         return Arrays.asList(fast, slow);
     
     }
+    
+    public static List<Double> runTimecourse_ThirdTimescale(Network nw,String [] args,int numberOfPerturbations, int timePerturbationStart, boolean writeTimecourse, String timecourseFileName, String timecourseFileName_2, int seed){
+        
+        String PertNodeString1 = null,PertNodeString2 = null,PertNodeString3 = null,PertNodeString4 = null,PertNodeState1 = null,PertNodeState2 = null,PertNodeState3 = null,PertNodeState4 = null; 
+        Random rand = new Random(seed);
+        
+        String fileName=args[0].split("\\.")[0];
+        if(numberOfPerturbations>0){
+                PertNodeString1=args[4]; //Node 1 that wil be perturbed
+                PertNodeState1=args[5]; //Node state of the perturbed node 1. Must be 0 or 1
+                if(numberOfPerturbations>1){
+                    PertNodeString2=args[6]; //Node 2 that wil be perturbed
+                    PertNodeState2=args[7]; //Node state of the perturbed node 2. Must be 0 or 1       
+                    if(numberOfPerturbations>2){
+                        PertNodeString3=args[8]; //Node 3 that wil be perturbed
+                        PertNodeState3=args[9]; //Node state of the perturbed node 3. Must be 0 or 1
+                        if(numberOfPerturbations>3){
+                            PertNodeString4=args[10]; //Node 4 that wil be perturbed
+                            PertNodeState4=args[11]; //Node state of the perturbed node 4. Must be 0 or 1        
+                        }
+                    }
+                }
+            }
+        
+        
+        double Ntime; //One normalized time step is Ntime updates 
+        int IC=Integer.parseInt(args[1]); //Number of initial conditions
+        int T=Integer.parseInt(args[2]); //This is the number of normalized time steps 
+        
+        int Tprint=5*T; //These are used to know how often we will print out to file the timecourse
+        int Nprint; 
+        
+        double p; //This is the probability of updating any of the slow nodes at any update step
+        //the update probability of a fast node is slowTimeScale times that of a slow node
+        double p_slowest; //This is the probability of updating any of the slowest nodes at any update step
+        //the update probability of a slowest node is 1/slowestTimeScale times that of a slow node
+        int N=nw.getN();
+        ArrayList<Integer> fast; //This array stores the indices of the fast nodes
+        ArrayList<Integer> slow; //This array stores the indices of the slow nodes
+        ArrayList<Integer> slowest; //This array stores the indices of the slowest nodes
+                
+        int index;
+        boolean steadyState;
+        int updateNode,KOnode1 = 0,KOnode2 = 0,KOnode3 = 0,KOnode4 = 0;
+        double Apofraction1,Apofraction2,Apofraction3,Prolfraction1,Prolfraction2,Prolfraction3,Prolfraction4,Prolfraction,Apofraction;
+        double apo,prol;
+        int Apofraction1Ind,Apofraction2Ind,Apofraction3Ind,Prolfraction1Ind,Prolfraction2Ind,Prolfraction3Ind,Prolfraction4Ind;
+        int[] nodeStates,pastState;
+        double rand_temp, slowTimeScale, slowestTimeScale;
+        double[][] trajectory,trajectory2;
+        double[][] trajectory_squared,trajectory2_squared;
+        ArrayList<Integer> KOnodes=new ArrayList<Integer>();
+        HashMap<String,String> initialCondition;
+ 
+        HashMap namesDictionary=new HashMap<Integer,String>();
+        HashMap indexDictionary=new HashMap<String,Integer>();
+        for(int i=0;i<N;i++){namesDictionary.put(i, nw.getNames()[i]);indexDictionary.put(nw.getNames()[i],i);}
+        Apofraction1Ind=(int) indexDictionary.get("Apoptosis");Apofraction2Ind=(int) indexDictionary.get("Apoptosis_2");Apofraction3Ind=(int) indexDictionary.get("Apoptosis_3");
+        Prolfraction1Ind=(int) indexDictionary.get("Proliferation");Prolfraction2Ind=(int) indexDictionary.get("Proliferation_2");Prolfraction3Ind=(int) indexDictionary.get("Proliferation_3");Prolfraction4Ind=(int) indexDictionary.get("Proliferation_4");
+        
+        List<ArrayList<Integer>> fast_slow_list = SlowFastNodes_ThirdTimescale(indexDictionary,fileName);
+        fast = fast_slow_list.get(0);
+        slow = fast_slow_list.get(1);
+        slowest = fast_slow_list.get(2);
+        
+        double[] timescale_array = TimeScales(fileName);
+        slowTimeScale = timescale_array[0];
+        slowestTimeScale = timescale_array[1];
+        
+        p=1.0*slow.size()/(1.0*slow.size()+slowTimeScale*fast.size()+(1.0/slowestTimeScale)*slowest.size());
+        p_slowest=(1.0/slowestTimeScale)*slowest.size()/(1.0*slow.size()+slowTimeScale*fast.size()+(1.0/slowestTimeScale)*slowest.size());
+        //p=pslow, 5*p=pfast, p/5=pslowest; p*slow.size()+pfast*fast.size()+pslowest*slowest.size()= 1 =p(slow.size()+5*fast.size()+slowest.size()/5)              
+        Ntime=slow.size()+slowTimeScale*fast.size()+(1.0/slowestTimeScale)*slowest.size();
+        Nprint=(int)(Math.ceil(1.0*Ntime/slowTimeScale));
+        
+        List<ArrayList<Double>> Apoptosis_Proliferation_Weights = ApoptosisProliferationWeights(fileName);
+        ArrayList<Double> ApoptosisWeights=Apoptosis_Proliferation_Weights.get(0);
+        ArrayList<Double> ProliferationWeights=Apoptosis_Proliferation_Weights.get(1);
+                              
+        Apofraction1=0;Apofraction2=0;Apofraction3=0;Prolfraction1=0;Prolfraction2=0;Prolfraction3=0;Prolfraction4=0;Apofraction=0;Prolfraction=0;
+        trajectory=new double[Tprint][N];
+        trajectory2=new double[Tprint][2];
+        trajectory_squared=new double[Tprint][N];
+        trajectory2_squared=new double[Tprint][2];
+        initialCondition=getInitialCondition(fileName);
+        for(int t=0;t<Tprint;t++){for(int i=0;i<N;i++){trajectory[t][i]=0;trajectory_squared[t][i]=0;}}
+        for(int t=0;t<Tprint;t++){for(int i=0;i<2;i++){trajectory2[t][i]=0;trajectory2_squared[t][i]=0;}}
+        for(int r=0;r<IC;r++){
+            nodeStates=setInitialCondition(indexDictionary,initialCondition,rand); 
+            if(numberOfPerturbations>0){
+                KOnode1=(int) indexDictionary.get(PertNodeString1);
+                KOnodes.add(new Integer(KOnode1));
+                if(numberOfPerturbations>1){
+                    KOnode2=(int) indexDictionary.get(PertNodeString2);
+                    KOnodes.add(new Integer(KOnode2));
+                    if(numberOfPerturbations>2){
+                        KOnode3=(int) indexDictionary.get(PertNodeString3);
+                        KOnodes.add(new Integer(KOnode3));
+                        if(numberOfPerturbations>3){
+                            KOnode3=(int) indexDictionary.get(PertNodeString4);
+                            KOnodes.add(new Integer(KOnode4));
+                        }
+                    }
+                }
+            }
+            if(nodeStates[Apofraction3Ind]==1){apo=ApoptosisWeights.get(2);}else if(nodeStates[Apofraction2Ind]==1){apo=ApoptosisWeights.get(1);}else if(nodeStates[Apofraction1Ind]==1){apo=ApoptosisWeights.get(0);}else{apo=0;}
+            if(nodeStates[Prolfraction4Ind]==1){prol=ProliferationWeights.get(3);}else if(nodeStates[Prolfraction3Ind]==1){prol=ProliferationWeights.get(2);}else if(nodeStates[Prolfraction2Ind]==1){prol=ProliferationWeights.get(1);}else if(nodeStates[Prolfraction1Ind]==1){prol=ProliferationWeights.get(0);}else{prol=0;}
+            steadyState=false;
+            for(int t=0;t<Tprint;t++){
+                if(!steadyState){
+                    if(t==timePerturbationStart){
+                        if(numberOfPerturbations>0){
+                            nodeStates[KOnode1]=Integer.parseInt(PertNodeState1);
+                            if(numberOfPerturbations>1){
+                                nodeStates[KOnode2]=Integer.parseInt(PertNodeState2);
+                                if(numberOfPerturbations>2){
+                                    nodeStates[KOnode3]=Integer.parseInt(PertNodeState3);
+                                    if(numberOfPerturbations>3){
+                                        nodeStates[KOnode4]=Integer.parseInt(PertNodeState4);
+                                    }
+                                }
+                            }
+                        }    
+                    }
+
+                    for(int i=0;i<N;i++){trajectory[t][i]+=1.0*nodeStates[i];trajectory_squared[t][i]+=1.0*nodeStates[i]*nodeStates[i];}
+                    trajectory2[t][0]+=1.0*prol;
+                    trajectory2[t][1]+=1.0*apo;
+                    trajectory2_squared[t][0]+=1.0*prol*prol;
+                    trajectory2_squared[t][1]+=1.0*apo*apo;
+                    for(int n=0;n<Nprint;n++){
+                        rand_temp=rand.nextDouble();
+                        if(rand_temp>=p){
+                            if(rand_temp>=1.0-p_slowest){index=(int)(rand.nextDouble()*slowest.size());updateNode=slowest.get(index);}
+                            else{index=(int)(rand.nextDouble()*fast.size());updateNode=fast.get(index);} 
+                        }
+                        else{index=(int)(rand.nextDouble()*slow.size());updateNode=slow.get(index);}
+                        pastState=Arrays.copyOf(nodeStates, nodeStates.length);
+                        nodeStates[updateNode]=UpdateMethods.updateSingleNodeBoolean(nw, pastState, updateNode);
+                        if(numberOfPerturbations>0){
+                            if(updateNode==KOnode1&&t>=timePerturbationStart){nodeStates[KOnode1]=Integer.parseInt(PertNodeState1);}
+                            if(numberOfPerturbations>1){
+                                if(updateNode==KOnode2&&t>=timePerturbationStart){nodeStates[KOnode2]=Integer.parseInt(PertNodeState2);}
+                                if(numberOfPerturbations>2){
+                                    if(updateNode==KOnode3&&t>=timePerturbationStart){nodeStates[KOnode3]=Integer.parseInt(PertNodeState3);}
+                                    if(numberOfPerturbations>3){
+                                        if(updateNode==KOnode4&&t>=timePerturbationStart){nodeStates[KOnode4]=Integer.parseInt(PertNodeState4);}
+                                    }
+                                }
+                            }
+                        }                      
+                    }
+
+                    if(nodeStates[Apofraction3Ind]==1){apo=ApoptosisWeights.get(2);}else if(nodeStates[Apofraction2Ind]==1){apo=ApoptosisWeights.get(1);}else if(nodeStates[Apofraction1Ind]==1){apo=ApoptosisWeights.get(0);}else{apo=0;}
+                    if(nodeStates[Prolfraction4Ind]==1){prol=ProliferationWeights.get(3);}else if(nodeStates[Prolfraction3Ind]==1){prol=ProliferationWeights.get(2);}else if(nodeStates[Prolfraction2Ind]==1){prol=ProliferationWeights.get(1);}else if(nodeStates[Prolfraction1Ind]==1){prol=ProliferationWeights.get(0);}else{prol=0;}
+                    if(t>=timePerturbationStart){
+                         steadyState=checkSteadyState(nw,nodeStates,KOnodes);
+                    }
+                }
+                else{
+                    for(int i=0;i<N;i++){trajectory[t][i]+=1.0*nodeStates[i];trajectory_squared[t][i]+=1.0*nodeStates[i]*nodeStates[i];}
+                    trajectory2[t][0]+=1.0*prol;
+                    trajectory2[t][1]+=1.0*apo;
+                    trajectory2_squared[t][0]+=1.0*prol*prol;
+                    trajectory2_squared[t][1]+=1.0*apo*apo;  
+                }
+            }
+
+            if(nodeStates[(int) indexDictionary.get("Apoptosis")]==1){Apofraction1=Apofraction1+1;}
+            if(nodeStates[(int) indexDictionary.get("Apoptosis_2")]==1){Apofraction2=Apofraction2+1;}
+            if(nodeStates[(int) indexDictionary.get("Apoptosis_3")]==1){Apofraction3=Apofraction3+1;}
+            if(nodeStates[(int) indexDictionary.get("Proliferation")]==1){Prolfraction1=Prolfraction1+1;}
+            if(nodeStates[(int) indexDictionary.get("Proliferation_2")]==1){Prolfraction2=Prolfraction2+1;}
+            if(nodeStates[(int) indexDictionary.get("Proliferation_3")]==1){Prolfraction3=Prolfraction3+1;}
+            if(nodeStates[(int) indexDictionary.get("Proliferation_4")]==1){Prolfraction4=Prolfraction4+1;}
+            
+            if(nodeStates[Apofraction3Ind]==1){Apofraction=Apofraction+ApoptosisWeights.get(2);}else if(nodeStates[Apofraction2Ind]==1){Apofraction=Apofraction+ApoptosisWeights.get(1);}else if(nodeStates[Apofraction1Ind]==1){Apofraction=Apofraction+ApoptosisWeights.get(0);}else{}
+            if(nodeStates[Prolfraction4Ind]==1){Prolfraction=Prolfraction+ProliferationWeights.get(3);}else if(nodeStates[Prolfraction3Ind]==1){Prolfraction=Prolfraction+ProliferationWeights.get(2);}else if(nodeStates[Prolfraction2Ind]==1){Prolfraction=Prolfraction+ProliferationWeights.get(1);}else if(nodeStates[Prolfraction1Ind]==1){Prolfraction=Prolfraction+ProliferationWeights.get(0);}else{}
+            
+        }
+            Apofraction1=Apofraction1/IC;
+            Apofraction2=Apofraction2/IC;
+            Apofraction3=Apofraction3/IC;
+            Prolfraction1=Prolfraction1/IC;
+            Prolfraction2=Prolfraction2/IC;
+            Prolfraction3=Prolfraction3/IC;
+            Prolfraction4=Prolfraction4/IC;
+            Apofraction=Apofraction/IC;
+            Prolfraction=Prolfraction/IC;
+            
+            if(writeTimecourse){
+                writeTrajectory(nw,N,IC,Tprint,trajectory,trajectory2,trajectory_squared,trajectory2_squared,(double)(Nprint)/(double)(Ntime),timecourseFileName,timecourseFileName_2);
+            }
+            
+            return Arrays.asList(Apofraction1,Apofraction2,Apofraction3,Prolfraction1,Prolfraction2,Prolfraction3,Prolfraction4,Apofraction,Prolfraction);
+            
+            }
+       
+    public static List<ArrayList<Integer>> SlowFastNodes_ThirdTimescale(HashMap<String,Integer> indexDictionary, String filename){
+        
+        ArrayList<Integer> fast=new ArrayList<>(); //This array stores the indices of the fast nodes
+        ArrayList<Integer> slow=new ArrayList<>(); //This array stores the indices of the slow nodes
+        ArrayList<Integer> slowest=new ArrayList<>(); //This array stores the indices of the slow nodes
+        FileToRead fr=new FileToRead(filename+"_SlowFastNodes.txt");
+        FileToRead fr2=new FileToRead(filename+"_SlowFastNodes_ThirdTimescale.txt");
+        HashMap<String,String> slowFastNodes=new HashMap();
+        int ranState;
+        String line;
+        String node;
+        String state;        
+        
+        //Slow nodes for the simulations. The nodes not added to the "slow" and "slowest" list are the fast nodes and will stay in the "fast" list
+        for(int i=0;i<indexDictionary.size();i++){fast.add(new Integer(i));}
+        while(fr.hasNext()){
+            line=fr.nextLine();
+            //System.out.println(line);
+            fast.remove(new Integer((int) indexDictionary.get(line)));
+            slow.add(new Integer((int) indexDictionary.get(line)));           
+        }
+        
+        fr.close();
+        
+        while(fr2.hasNext()){
+            line=fr2.nextLine();
+            //System.out.println(line);
+            slow.remove(new Integer((int) indexDictionary.get(line)));
+            slowest.add(new Integer((int) indexDictionary.get(line)));           
+        }
+        
+        fr2.close();
+        
+        return Arrays.asList(fast, slow, slowest);
+    
+    }
+  
+    public static double[] TimeScales(String filename){
+        
+        double[] timescale_array=new double[2]; //This array stores the slowTimeScale and slowestTimeScale
+        
+        FileToRead fr=new FileToRead(filename+"_TimeScales_ThirdTimescale.txt");
+        //System.out.println(filename+"_TimeScales_ThirdTimescale.txt");
+        timescale_array[0]=Double.parseDouble(fr.nextLine()); //slowTimeScale = timescale_list[0];
+        //System.out.println(timescale_array[0]);
+        timescale_array[1]=Double.parseDouble(fr.nextLine()); //slowestTimeScale = timescale_list[1];
+        //System.out.println(timescale_array[1]);
+        
+        return timescale_array;
+    
+    }
+    
     
     public static List<ArrayList<Double>> ApoptosisProliferationWeights(String filename){
         
@@ -531,6 +817,7 @@ public class NetworkSimulations {
                 state=line.split("\t")[1];        
                 initialCondition.put(node, state);            
             }
+            fr.close();
             return initialCondition;
     }
 

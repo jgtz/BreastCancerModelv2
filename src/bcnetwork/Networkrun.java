@@ -29,6 +29,7 @@ public class Networkrun {
      * args[0] is used to specify the mode in which to run the program.
      * - "Generate" - Will generate the Boolean tables, names, and functions files based on the model specified by args[1] 
      * - "Run" - Will run (but not generate) the Boolean tables, names, and functions files based on the model specified by args[1]
+     * - "Run_ThirdTimescale" - Like "Run", but will use 3 timescales instead of the usual 2 timescales (slow, fast nodes)
      * - "GenerateAndRun" - Will run and generate the Boolean tables, names, and functions files based on the model specified by args[1]
      * - "BreastCancerModel_ZanudoEtAl2017" - Will run the simulations of the breast cancer model of the Zanudo et al. 2017 manuscript.
      * args[1] is the name of the TXT file where the model rules are.
@@ -48,7 +49,7 @@ public class Networkrun {
         File fName;
         Network nw=null;
 
-        if("Generate".equalsIgnoreCase(mode)| "Run".equalsIgnoreCase(mode)| "GenerateAndRun".equalsIgnoreCase(mode)){
+        if("Generate".equalsIgnoreCase(mode)| "Run".equalsIgnoreCase(mode)| "GenerateAndRun".equalsIgnoreCase(mode) | "Run_ThirdTimescale".equalsIgnoreCase(mode)){
             fileName=args[1]; //This file contains the Boolean rules of the model     
             fName = new File(args[1]);
             test=new String[args.length-1];
@@ -60,14 +61,23 @@ public class Networkrun {
             else{
                 nw=GetModel(fileName);
             } 
-            if("GenerateAndRun".equalsIgnoreCase(mode) | "Run".equalsIgnoreCase(mode)){
-                if(test.length==4){NetworkSimulations.BaselineTimecourse(test,nw);}
-                if(test.length==6){NetworkSimulations.SinglePerturbationTimecourse(test,nw);} 
-                if(test.length==8){NetworkSimulations.DoublePerturbationTimecourse(test,nw);}
-                if(test.length==10){NetworkSimulations.TriplePerturbationTimecourse(test,nw);}
-                if(test.length==12){NetworkSimulations.QuadruplePerturbationTimecourse(test,nw);}
+            if("GenerateAndRun".equalsIgnoreCase(mode) | "Run".equalsIgnoreCase(mode) | "Run_ThirdTimescale".equalsIgnoreCase(mode)){
+                
+                if("GenerateAndRun".equalsIgnoreCase(mode) | "Run".equalsIgnoreCase(mode)){
+                    if(test.length==4){NetworkSimulations.BaselineTimecourse(test,nw,false);}
+                    if(test.length==6){NetworkSimulations.SinglePerturbationTimecourse(test,nw,false);} 
+                    if(test.length==8){NetworkSimulations.DoublePerturbationTimecourse(test,nw,false);}
+                    if(test.length==10){NetworkSimulations.TriplePerturbationTimecourse(test,nw,false);}
+                    if(test.length==12){NetworkSimulations.QuadruplePerturbationTimecourse(test,nw,false);}                 
+                }
+                else{
+                    if(test.length==4){NetworkSimulations.BaselineTimecourse(test,nw,true);}
+                    if(test.length==6){NetworkSimulations.SinglePerturbationTimecourse(test,nw,true);} 
+                    if(test.length==8){NetworkSimulations.DoublePerturbationTimecourse(test,nw,true);}
+                    if(test.length==10){NetworkSimulations.TriplePerturbationTimecourse(test,nw,true);}
+                    if(test.length==12){NetworkSimulations.QuadruplePerturbationTimecourse(test,nw,true);}  
+                }                
             }
-            
             else{
                 System.out.println("Exiting program");
             }
@@ -106,14 +116,14 @@ public class Networkrun {
         //Simulates the model under no perturbations and outputs the timecourse
         //of the average activity of each node
         System.out.println("Baseline timecourse");
-        NetworkSimulations.BaselineTimecourse(test,nw);
+        NetworkSimulations.BaselineTimecourse(test,nw,false);
         System.out.println("");
         
         //Simulates the model in the presence of Alpelisib and outputs the timecourse
         //of the average activity of each node
         System.out.println("Alpelisib=1 timecourse");
         test[4]="Alpelisib";test[5]="1";
-        NetworkSimulations.SinglePerturbationTimecourse(test,nw);
+        NetworkSimulations.SinglePerturbationTimecourse(test,nw,false);
         System.out.println("");
         
         //Simulates the model in the presence of Alpelisib and PIM, and outputs
@@ -121,7 +131,7 @@ public class Networkrun {
         System.out.println("Alpelisib=1 + PIM=1 timecourse");
         test[4]="Alpelisib";test[5]="1";
         test[6]="PIM";test[7]="1";
-        NetworkSimulations.DoublePerturbationTimecourse(test,nw);
+        NetworkSimulations.DoublePerturbationTimecourse(test,nw,false);
         System.out.println("");
         
         //Simulates the model in the presence of Alpelisib and MCL1 inhibition,
@@ -129,7 +139,7 @@ public class Networkrun {
         System.out.println("Alpelisib=1 + MCL1=0 timecourse");        
         test[4]="Alpelisib";test[5]="1";
         test[6]="MCL1";test[7]="0";
-        NetworkSimulations.DoublePerturbationTimecourse(test,nw);
+        NetworkSimulations.DoublePerturbationTimecourse(test,nw,false);
         System.out.println("");
 
         //Simulates the model in the presence of Alpelisib and Everolimus,
@@ -137,14 +147,14 @@ public class Networkrun {
         System.out.println("Alpelisib=1 + Everolimus=1 timecourse");
         test[4]="Alpelisib";test[5]="1";
         test[6]="Everolimus";test[7]="1";
-        NetworkSimulations.DoublePerturbationTimecourse(test,nw);
+        NetworkSimulations.DoublePerturbationTimecourse(test,nw,false);
         System.out.println("");
                         
         System.out.println("Alpelisib=1 + Palbociclib=1 + Fulvestrant=1 timecourse");
         test[4]="Alpelisib";test[5]="1";
         test[6]="Palbociclib";test[7]="1";
         test[8]="Fulvestrant";test[9]="1";        
-        NetworkSimulations.TriplePerturbationTimecourse(test,nw);
+        NetworkSimulations.TriplePerturbationTimecourse(test,nw,false);
         System.out.println("");
         
         //Simulates the model in the presence of Alpelisib and each of 

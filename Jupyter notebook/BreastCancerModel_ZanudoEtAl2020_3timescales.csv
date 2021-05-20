@@ -1,0 +1,13 @@
+Proliferation_norm,Apoptosis_norm,Perturbation,Cell_line,Timescale
+0.25035,0.25,Alpelisib,MCF7,2 timescales
+0.250025,0.25,Alpelisib,MCF7,3 timescales
+0.5,0.084075,Alpelisib+FOXO3=0,MCF7,2 timescales
+0.5,0.082725,Alpelisib+FOXO3=0,MCF7,3 timescales
+0.50005,0.25,Alpelisib+Rb_T=0,MCF7,2 timescales
+0.5,0.25,Alpelisib+Rb_T=0,MCF7,3 timescales
+0.250375,1.0,Alpelisib+S63845,MCF7,2 timescales
+0.250025,1.0,Alpelisib+S63845,MCF7,3 timescales
+0.50005,0.25,Alpelisib+p21/p27_T=0,MCF7,2 timescales
+0.5,0.25,Alpelisib+p21/p27_T=0,MCF7,3 timescales
+1.0,0.0,None,MCF7,2 timescales
+1.0,0.0,None,MCF7,3 timescales
