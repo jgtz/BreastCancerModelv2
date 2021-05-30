@@ -16,13 +16,7 @@ The simplest way to reproduce the model result is through the [Jupyter notebook]
 
 We recommend creating a virtual environment using [Anaconda](https://www.anaconda.com/) to run this program. The required packages and the versions we used for running the program are listed below, together with a command to create a virtual environment in Anaconda with these versions.
 
-Python (version 3.6.8) 
-Java JDK (version 8.0.152) 
-Pandas (version 0.24.2)
-NumPy (version 1.16.4)
-Matplotlib (version 3.1.0)
-Jupyter (version 0.35.5)
-Ipython (version 7.6.1)
+Python (version 3.6.8), Java JDK (version 8.0.152), Pandas (version 0.24.2), NumPy (version 1.16.4), Matplotlib (version 3.1.0), Jupyter (version 0.35.5), and Ipython (version 7.6.1).
 
 ```
 conda create -n myenv brca_modelv2 python=3.6.8 openjdk=8.0.152 numpy=1.16.4 matplotlib=3.1.0 pandas=0.24.2 jupyterlab=0.35.5 ipython=7.6.1
